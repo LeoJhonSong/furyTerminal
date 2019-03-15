@@ -1,0 +1,12 @@
+{
+    "folders": [
+        {
+            "uri": "ftp://pi:970518@192.168.1.103/home/pi/Desktop/furyTerminal/"
+        }
+    ],
+"settings": {
+    "markdown.extension.toc.levels": "2..6",
+    "emojisense.unicodeCompletionsEnabled": true,
+    "files.eol": "\n"
+}
+}
