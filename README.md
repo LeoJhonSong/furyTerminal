@@ -63,9 +63,9 @@ sudo update-alternatives --config python
 
 # CAN转SPI模块
 
-📖[RS485 CAN HAT用户手册](doc/CAN2SPI/RS485-CAN-HAT-user-manual-cn.pdf)
+📖[RS485 CAN HAT用户手册](doc/CAN2SPI/CAN_to_SPI_module/RS485-CAN-HAT-user-manual-cn.pdf)
 
-📖[RS485 CAN HAT电路图](doc/CAN2SPI/RS485_CAN_HAT_Schematic.pdf)
+📖[RS485 CAN HAT电路图](doc/CAN2SPI/CAN_to_SPI_module/RS485_CAN_HAT_Schematic.pdf)
 
 🔗 [python-can文档](https://python-can.readthedocs.io/en/master/index.html#)
 
