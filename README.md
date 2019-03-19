@@ -5,7 +5,15 @@
    2. [发起时间](#发起时间)
    3. [系统目标](#系统目标)
    4. [系统环境](#系统环境)
-2. [设置允许访问的地址](#设置允许访问的地址)
+2. [oncar](#oncar)
+   1. [oncar设计方针](#oncar设计方针)
+3. [django纪要](#django纪要)
+   1. [设置允许访问的地址](#设置允许访问的地址)
+   2. [常用命令](#常用命令)
+      1. [运行网站](#运行网站)
+      2. [生成应用的迁移](#生成应用的迁移)
+      3. [应用迁移到网站](#应用迁移到网站)
+   3. [注意事项](#注意事项)
 
 ## 简介
 
@@ -67,7 +75,46 @@ sudo update-alternatives --config python
 
 🔗 [Django中文文档](https://docs.djangoproject.com/zh-hans/2.1/)
 
-## 设置允许访问的地址
+## oncar
+
+### oncar设计方针
+
+📖 [oncar设计方针](doc/furyTerminal/oncar/设计方针.md)
+
+## django纪要
+
+### 设置允许访问的地址
 
 在 `furyTerminal/furyTerminal/settings.py` 中 **ALLOWED_HOSTS**一项设置了允许访问
 网站的地址, 设为 `'*'` 则是允许所有地址访问.
+
+### 常用命令
+
+#### 运行网站
+
+⚠️ 在网站根目录执行.
+💡此时为网站在 **localhost:8000** 运行
+
+```shell
+python furyTerminal/manage.py runserver 0:8000
+```
+
+#### 生成应用的迁移
+
+```shell
+python manage.py makemigrations [app]
+```
+
+#### 应用迁移到网站
+
+⚠️ 在网站根目录执行.
+
+```shell
+python manage.py migrate
+```
+
+### 注意事项
+
+- path()函数的参数`route`不会匹配 GET 和 POST 参数或域名。例如，URLconf 在处理请求
+  https://www.example.com/myapp/ 时，它会尝试匹配 myapp/ 。处理请求
+  https://www.example.com/myapp/?page=3 时，也只会尝试匹配 myapp/。
