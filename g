@@ -1,3 +1,5 @@
+#! /bin/sh
+
 # a script to automatically do git add all, git commit and git push
 
 git add .
