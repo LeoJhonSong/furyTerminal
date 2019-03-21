@@ -1,0 +1,12 @@
+#! /bin/bash
+
+# simply get keyboard input
+
+read -p 'press!!!' -n 1 accelerator
+
+while :
+do
+    echo -e "\n"
+    read -p 'press!!!' -n 1 accelerator
+done
+
