@@ -5,9 +5,10 @@
    2. [发起时间](#发起时间)
    3. [系统目标](#系统目标)
    4. [系统环境](#系统环境)
-2. [oncar](#oncar)
+2. [管理](#管理)
+3. [oncar](#oncar)
    1. [oncar设计方针](#oncar设计方针)
-3. [django纪要](#django纪要)
+4. [django纪要](#django纪要)
    1. [设置允许访问的地址](#设置允许访问的地址)
    2. [常用命令](#常用命令)
       1. [运行网站](#运行网站)
@@ -75,6 +76,11 @@ sudo update-alternatives --config python
 
 🔗 [Django中文文档](https://docs.djangoproject.com/zh-hans/2.1/)
 
+## 管理
+
+管理员账号: leo
+密码: 111111
+
 ## oncar
 
 ### oncar设计方针
@@ -118,3 +124,4 @@ python manage.py migrate
 - path()函数的参数`route`不会匹配 GET 和 POST 参数或域名。例如，URLconf 在处理请求
   https://www.example.com/myapp/ 时，它会尝试匹配 myapp/ 。处理请求
   https://www.example.com/myapp/?page=3 时，也只会尝试匹配 myapp/。
+- 🔗[django模型中auto_now和auto_now_add的区别](https://www.cnblogs.com/vincenshen/articles/7659763.html)
