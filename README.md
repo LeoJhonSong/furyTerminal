@@ -10,11 +10,14 @@
    1. [oncar设计方针](#oncar设计方针)
 4. [django纪要](#django纪要)
    1. [设置允许访问的地址](#设置允许访问的地址)
-   2. [常用命令](#常用命令)
+   2. [设置后台时间显示格式](#设置后台时间显示格式)
+   3. [常用命令](#常用命令)
       1. [运行网站](#运行网站)
       2. [生成应用的迁移](#生成应用的迁移)
       3. [应用迁移到网站](#应用迁移到网站)
-   3. [注意事项](#注意事项)
+      4. [database API](#database-api)
+         1. [进入专用python解释器](#进入专用python解释器)
+   4. [注意事项](#注意事项)
 
 ## 简介
 
@@ -94,6 +97,11 @@ sudo update-alternatives --config python
 在 `furyTerminal/furyTerminal/settings.py` 中 **ALLOWED_HOSTS**一项设置了允许访问
 网站的地址, 设为 `'*'` 则是允许所有地址访问.
 
+### 设置后台时间显示格式
+
+🔗 [可用的格式化字符](https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date)
+🔗 具体参考[这里](https://blog.51cto.com/xujpxm/2090382)
+
 ### 常用命令
 
 #### 运行网站
@@ -108,7 +116,7 @@ python furyTerminal/manage.py runserver 0:8000
 #### 生成应用的迁移
 
 ```shell
-python manage.py makemigrations [app]
+python manage.py makemigrations
 ```
 
 #### 应用迁移到网站
@@ -118,6 +126,20 @@ python manage.py makemigrations [app]
 ```shell
 python manage.py migrate
 ```
+
+#### database API
+
+##### 进入专用python解释器
+
+> 我们使用这个命令而不是简单的使用 "Python" 是因为 **manage.py** 会设置
+> **DJANGO_SETTINGS_MODULE** 环境变量，这个变量会让 Django 根据 **mysite/settings.py**
+> 文件来设置 Python 包的导入路径。
+
+```shell
+python manage.py shell
+```
+
+
 
 ### 注意事项
 

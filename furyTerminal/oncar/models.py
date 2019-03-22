@@ -5,7 +5,7 @@ from django.db import models
 
 class Speed(models.Model):
     speed_value = models.CharField(max_length=50)
-    speed_time = models.TimeField(auto_now_add=True)
+    speed_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.speed_time
+        return 'time: ' + str(self.speed_time)
