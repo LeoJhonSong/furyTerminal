@@ -18,6 +18,7 @@
       3. [应用迁移到网站](#应用迁移到网站)
       4. [database API](#database-api)
          1. [进入专用python解释器](#进入专用python解释器)
+         2. [添加记录](#添加记录)
    4. [注意事项](#注意事项)
 
 ## 简介
@@ -154,7 +155,30 @@ python manage.py migrate
 python manage.py shell
 ```
 
+##### 添加记录
 
+举例: 向 **oncar** 应用的 **Speed** 模型添加记录
+
+1.首先当然是引用它
+
+```python
+from oncar.models import Speed
+```
+
+2.有两种添加方法:
+
+   1. 先实例化然后保存 🔗[save()](https://docs.djangoproject.com/zh-hans/2.1/topics/db/queries/)
+
+      ```python
+      speeed = Speed(speed_value='123')
+      speeed.save()
+      ```
+
+   2. 直接创建 🔗[creat()](https://docs.djangoproject.com/zh-hans/2.1/ref/models/querysets/#django.db.models.query.QuerySet.create)
+
+      ```python
+      Speed.objects.create(speed_value='123')
+      ```
 
 ### 注意事项
 
