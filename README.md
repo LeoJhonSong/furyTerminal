@@ -120,6 +120,8 @@ def get_readonly_fields(self, request, obj=None):
 
 ### 常用命令
 
+💡 因为我记性很差, 最常用的几个比较长的命令我写成了shell脚本放在 **/scripts** 文件夹中
+
 #### 运行网站
 
 ⚠️ 在网站根目录执行.
