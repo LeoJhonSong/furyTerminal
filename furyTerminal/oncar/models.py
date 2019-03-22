@@ -9,3 +9,4 @@ class Speed(models.Model):
 
     def __str__(self):
         return 'time: ' + str(self.speed_time)
+

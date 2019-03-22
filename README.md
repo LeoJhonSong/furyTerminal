@@ -11,6 +11,7 @@
 4. [django纪要](#django纪要)
    1. [设置允许访问的地址](#设置允许访问的地址)
    2. [设置后台时间显示格式](#设置后台时间显示格式)
+      1. [设置字段不可修改](#设置字段不可修改)
    3. [常用命令](#常用命令)
       1. [运行网站](#运行网站)
       2. [生成应用的迁移](#生成应用的迁移)
@@ -101,6 +102,20 @@ sudo update-alternatives --config python
 
 🔗 [可用的格式化字符](https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date)
 🔗 具体参考[这里](https://blog.51cto.com/xujpxm/2090382)
+
+#### 设置字段不可修改
+
+在对应的父类为 **admin.ModelAdmin** 的类下重写 `get_readonly_fields`方法如下:
+
+```shell
+def get_readonly_fields(self, request, obj=None):
+    if obj:  # obj is not None, so this is an edit
+        return ['[readonly_fields]']  # Return a list or tuple of readonly fields' names
+    else:  # This is an addition
+        return []
+```
+
+🔗 [参考](https://stackoverflow.com/questions/7860612/django-admin-make-field-editable-in-add-but-not-edit)
 
 ### 常用命令
 
