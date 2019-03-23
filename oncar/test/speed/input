@@ -8,5 +8,6 @@ while :
 do
     echo -e "\n"
     read -p 'press!!!' -n 1 accelerator
+    python $(pwd)/create.py $accelerator
 done
 
