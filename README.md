@@ -10,6 +10,7 @@
    3. [规划](#规划)
       1. [TODO](#todo)
       2. [FIXME](#fixme)
+      3. [Milestone](#milestone)
    4. [系统目标](#系统目标)
    5. [系统环境](#系统环境)
 2. [CAN转SPI模块](#can转spi模块)
@@ -48,7 +49,8 @@
 
 #### TODO
 
-添加 oncar 界面的内容, 详情参见[oncar面板设计草稿](doc/furyTerminal/oncar/面板设计草稿.md)
+- 开机动画. 可参考 🔗[YouTube上一个人给树莓派换Spalsh Screen](https://www.youtube.com/watch?v=VK_eBe53Stc)
+- 添加 oncar 界面的内容, 详情参见[oncar面板设计草稿](doc/furyTerminal/oncar/面板设计草稿.md)
 
 #### FIXME
 
@@ -56,6 +58,13 @@
   - 怀疑是后端数据库更新数据太频繁导致前端请求速度过慢, 考虑不从数据库请求数据, 即, 先将传感器
     读到的数据发送给model, 这样model不需要从后端读取数据, 另一方面后端记录的数据密度也许不需要这么大
 - 考虑使用websocket
+
+#### Milestone
+
+- 为每个车手建立账号分别记录数据
+- 将每次跑动的时间, 速率, 方向, 油门, 刹车, 电量等关联起来, 达到还原整次跑动的效果, 方便实时/
+  后期的分析
+- 语音提示
 
 ### 系统目标
 
@@ -67,9 +76,9 @@
   足够直观, 分析用数据以图表形式呈现
 - 系统足够健壮, 能够应对绝大多数故障情况, 比如掉电数据储存等.
 
-![系统蓝图](doc/蓝图.png)
-
 至于什么是终端 (Terminal), 参见 🔗 [这里](https://www.zhihu.com/question/21711307/answer/118788917)
+
+![系统蓝图](doc/蓝图.png)
 
 ### 系统环境
 
