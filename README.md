@@ -16,10 +16,17 @@
 2. [CAN转SPI模块](#can转spi模块)
 3. [DSI接口的7寸触摸显示屏](#dsi接口的7寸触摸显示屏)
 4. [车载网站 (交互平台)](#车载网站-交互平台)
-   1. [管理](#管理)
-   2. [oncar](#oncar)
+   1. [如此选择的优缺点](#如此选择的优缺点)
+      1. [Django](#django)
+         1. [优点](#优点)
+         2. [缺点](#缺点)
+      2. [Bootstrap](#bootstrap)
+         1. [优点](#优点-1)
+         2. [缺点](#缺点-1)
+   2. [管理](#管理)
+   3. [oncar](#oncar)
       1. [oncar设计](#oncar设计)
-   3. [django纪要](#django纪要)
+   4. [django纪要](#django纪要)
       1. [设置允许访问的地址](#设置允许访问的地址)
       2. [设置后台时间显示格式](#设置后台时间显示格式)
       3. [设置字段不可修改](#设置字段不可修改)
@@ -115,8 +122,40 @@ sudo update-alternatives --config python
 
 ## 车载网站 (交互平台)
 
-本网站基于Django框架.
+本网站基于 **Django** 框架和 **Bootsrap** 框架.
 
+### 如此选择的优缺点
+
+#### Django
+
+##### 优点
+
+- 是一个python框架, 数据处理很方便.
+- 容易上手. 个人认为结合了前后端, 更偏向后端, 但前端能很容易的结合前端
+
+##### 缺点
+
+暂时不知道
+
+#### Bootstrap
+
+##### 优点
+
+- 容易上手😅是的不好意思我太菜了
+- 使用容易. 只要在 HTML 页面中插入 Bootstrap 官网给出的模板即可.
+- 被广泛使用, 简洁好看
+
+##### 缺点
+
+- 被一些做前端的程序员认为不能够作出很炫技的效果, 是后端开发者用的东西.
+
+👇一些推荐的学习资料
+
+🔗 [HTML教程](https://www.w3schools.com/html/default.asp)  
+🔗 [CSS教程](https://www.w3schools.com/css/default.asp)  
+🔗 [Bootstrap教程](https://www.w3schools.com/bootstrap4/default.asp)  
+🔗 [Bootstrap官方文档](https://getbootstrap.com/docs/4.3/getting-started/introduction/)  
+🔗 [JavaScript教程](https://www.w3schools.com/js/default.asp)  
 🔗 [Django中文文档](https://docs.djangoproject.com/zh-hans/2.1/)
 
 ### 管理
@@ -147,7 +186,7 @@ sudo update-alternatives --config python
 
 在对应的父类为 **admin.ModelAdmin** 的类下重写 `get_readonly_fields`方法如下:
 
-```shell
+```python
 def get_readonly_fields(self, request, obj=None):
     if obj:  # obj is not None, so this is an edit
         return ['[readonly_fields]']  # Return a list or tuple of readonly fields' names
