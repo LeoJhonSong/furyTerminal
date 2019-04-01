@@ -14,7 +14,9 @@ can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')# socket
 i = 0x1
 idd = 0x121
 for msg in can0:
-    print(msg.data)
+    msgdata = ''.join(str(i) for i in msg.data)
+    print(msgdata +"\n")
+    print("id is " + str(msg.arbitration_id))
     idd = idd + i
     i = i + 0x1
     
