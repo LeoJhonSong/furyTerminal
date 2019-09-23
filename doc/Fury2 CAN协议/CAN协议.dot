@@ -1,0 +1,32 @@
+digraph G {
+splines=ortho
+rankdir=LR
+node[shape=rectangular]
+a[label="CAN总线"]
+b[label="VCU CAN0\l- 油门\l- 刹车\l- 给定转矩\l- 安全回路状态(16种)\l- 转发电控信息\l"]
+c[label="VCU CAN1\l(通道以实际接线为准)\l- 给定转矩\l"]
+d[label="k60"]
+e[label="转角传感器\l- 转角\l- 转速\l- 是否有效\l"]
+f[label="树莓派"]
+g[label="BMS\l- 电池最高温度\l- 电流(数据不准, 可能会用到电控数据)\l- 总电压\l"]
+h[label="电控\l- 电机温度\l- 电控温度\l- 转速\l- 控制器状态\l   - byte6\l   - byte7\l"]
+i[label="SD卡"]
+j[label="无线模块"]
+k[label="电机"]
+l[label="触摸屏"]
+m[label="网站"]
+n[label="姿态传感器\l- 横向加速度\l- 纵向加速度\l"]
+a->b
+a->c
+a->d
+d->i
+d->j
+d->n
+a->e
+a->f
+f->l
+f->m
+a->g
+a->h
+h->k
+}
