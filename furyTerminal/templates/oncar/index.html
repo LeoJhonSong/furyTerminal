@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Oncar{% endblock %}
+
+{% block body %}
+<div id="speed_bar" style="background-color:inherit;margin-left:47%;margin-top:10%;width:5%;height:15%;">
+    <img src="{% static 'oncar/img/color_bar.png' %}" alt="color_bar"
+        style="position:absolute;width:inherit;height:inherit;">
+    <div id="speed_bar_mask" style="position:absolute;background-color:inherit;width:inherit;height:inherit">
+    </div>
+</div>
+<h1 style="position:absolute;top:30%;left:36%;color: white;font-size: 16vw">fury!</h1>
+
+<script>
+    function speed_show() {
+        var max = document.getElementById("speed_bar").style.height.slice(0, -1)
+        $.getJSON('/oncar/refresh', {}, function (json) {
+            var current_speed = json.current_speed
+            var max_speed = json.max_speed
+            var speed_percent = 1 - current_speed / max_speed;
+            document.getElementById("speed_bar_mask").style.height = speed_percent * max + '%';
+        });
+        setTimeout("speed_show()", 500);
+    }
+    window.onload = speed_show();
+</script>
+{% endblock body %}
