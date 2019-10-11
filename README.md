@@ -305,6 +305,20 @@ from oncar.models import Speed
 
 ![1570749713523](doc/google_gauge.png)
 
-🔗 [这个](https://www.cssscript.com/demo/canvas-based-html5-gauge-library-gauge-js/)是目前找到最符合赛车样式的仪表
+🔗 [这个](https://www.cssscript.com/canvas-based-html5-gauge-library-gauge-js/)是目前找到最符合赛车样式的仪表 (好吧梁师傅说没有科技感), 由**canvas**绘制. 刷新值代码:
 
-![1570750083870](doc/car_gauge.png)
+```js
+document.gauges[0].value = current_speed;
+```
+
+![](doc/old-fashion-gauge.gif)
+
+![](doc/black-red-old-fashion-gauge.jpg)
+
+🔗 [这个](https://www.cssscript.com/animated-svg-gauge/)是科技简约风的, 由**svg**绘制, 刷新值代码:
+
+```js
+speedGauge.setValue(10)
+```
+
+![](doc/svg-modern-gauge.gif)

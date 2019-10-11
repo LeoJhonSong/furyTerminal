@@ -1,0 +1,29 @@
+<div id="speed-gauge" class="gauge-container"></div>
+{% load static %}
+<script src="{% static 'svg-modern-gauge/gauge.min.js' %}"></script>
+
+<script>
+    var speedGauge = Gauge(
+        document.getElementById("speed-gauge"), {
+            min: 0,
+            max: 80,
+            //dialStartAngle: 180,
+            //dialEndAngle: 0,
+            //value: 0,
+            //viewBox: "0 0 100 57",
+            color: function (value) {
+                if (value < 20) {
+                    return "#0000ff";
+                } else if (value < 40) {
+                    return "#0066ff";
+                } else if (value < 60) {
+                    return "#00aaff";
+                } else {
+                    return "#33ddff";
+                }
+            }
+        }
+    );
+</script>
+
+<!-- speedGauge.setValue(current_speed) -->

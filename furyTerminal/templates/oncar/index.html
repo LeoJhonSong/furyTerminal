@@ -15,7 +15,7 @@
     </div>
     {% endcomment %}
 
-    <div class="speed-gauge">
+    <div>
         {% include 'gauge.html' %}
     </div>
 </div>
@@ -25,7 +25,6 @@
         $.getJSON('/oncar/refresh', {}, function (json) {
             var current_speed = json.current_speed
             var max_speed = json.max_speed
-            document.gauges[0].value = current_speed;
         });
         setTimeout("speed_show()", 100);
     }

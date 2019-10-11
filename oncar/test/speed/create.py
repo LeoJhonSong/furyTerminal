@@ -12,7 +12,7 @@ from furyTerminal import settings
 Speed.objects.create(speed_value=sys.argv[1])
 
 i = 0
-max = 200
+max = 80
 while(True):
     a = random.randint(-0.1*max, 0.1*max)
     while (i + a < 0) or (i + a > max):
