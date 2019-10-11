@@ -3,42 +3,43 @@
 目录
 
 ---
-
-1. [简介](#简介)
-   1. [文档目的](#文档目的)
-   2. [发起时间](#发起时间)
-   3. [规划](#规划)
-      1. [TODO](#todo)
-      2. [FIXME](#fixme)
-      3. [Milestone](#milestone)
-   4. [系统目标](#系统目标)
-   5. [系统环境](#系统环境)
-2. [CAN转SPI模块](#can转spi模块)
-3. [DSI接口的7寸触摸显示屏](#dsi接口的7寸触摸显示屏)
-4. [车载网站 (交互平台)](#车载网站-交互平台)
-   1. [如此选择的优缺点](#如此选择的优缺点)
-      1. [Django](#django)
-         1. [优点](#优点)
-         2. [缺点](#缺点)
-      2. [Bootstrap](#bootstrap)
-         1. [优点](#优点-1)
-         2. [缺点](#缺点-1)
-   2. [管理](#管理)
+1. [简介](#%E7%AE%80%E4%BB%8B)
+   1. [文档目的](#%E6%96%87%E6%A1%A3%E7%9B%AE%E7%9A%84)
+   2. [发起时间](#%E5%8F%91%E8%B5%B7%E6%97%B6%E9%97%B4)
+   3. [规划](#%E8%A7%84%E5%88%92)
+      1. [TODO](#TODO)
+      2. [FIXME](#FIXME)
+      3. [Milestone](#Milestone)
+   4. [系统目标](#%E7%B3%BB%E7%BB%9F%E7%9B%AE%E6%A0%87)
+   5. [系统环境](#%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83)
+2. [CAN转SPI模块](#CAN%E8%BD%ACSPI%E6%A8%A1%E5%9D%97)
+3. [DSI接口的7寸触摸显示屏](#DSI%E6%8E%A5%E5%8F%A3%E7%9A%847%E5%AF%B8%E8%A7%A6%E6%91%B8%E6%98%BE%E7%A4%BA%E5%B1%8F)
+4. [车载网站 (交互平台)](#%E8%BD%A6%E8%BD%BD%E7%BD%91%E7%AB%99-%E4%BA%A4%E4%BA%92%E5%B9%B3%E5%8F%B0)
+   1. [如此选择的优缺点](#%E5%A6%82%E6%AD%A4%E9%80%89%E6%8B%A9%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9)
+      1. [Django](#Django)
+         1. [优点](#%E4%BC%98%E7%82%B9)
+         2. [缺点](#%E7%BC%BA%E7%82%B9)
+      2. [Bootstrap](#Bootstrap)
+         1. [优点](#%E4%BC%98%E7%82%B9-1)
+         2. [缺点](#%E7%BC%BA%E7%82%B9-1)
+   2. [管理](#%E7%AE%A1%E7%90%86)
    3. [oncar](#oncar)
-      1. [oncar设计](#oncar设计)
-   4. [django纪要](#django纪要)
-      1. [设置允许访问的地址](#设置允许访问的地址)
-      2. [设置后台时间显示格式](#设置后台时间显示格式)
-      3. [设置字段不可修改](#设置字段不可修改)
-      4. [常用命令](#常用命令)
-         1. [运行网站](#运行网站)
-         2. [生成应用的迁移](#生成应用的迁移)
-         3. [应用迁移到网站](#应用迁移到网站)
-         4. [database API](#database-api)
-            1. [进入专用python解释器](#进入专用python解释器)
-            2. [添加记录](#添加记录)
-      5. [注意事项](#注意事项)
-
+      1. [oncar设计](#oncar%E8%AE%BE%E8%AE%A1)
+   4. [django纪要](#django%E7%BA%AA%E8%A6%81)
+      1. [设置允许访问的地址](#%E8%AE%BE%E7%BD%AE%E5%85%81%E8%AE%B8%E8%AE%BF%E9%97%AE%E7%9A%84%E5%9C%B0%E5%9D%80)
+      2. [设置后台时间显示格式](#%E8%AE%BE%E7%BD%AE%E5%90%8E%E5%8F%B0%E6%97%B6%E9%97%B4%E6%98%BE%E7%A4%BA%E6%A0%BC%E5%BC%8F)
+      3. [设置字段不可修改](#%E8%AE%BE%E7%BD%AE%E5%AD%97%E6%AE%B5%E4%B8%8D%E5%8F%AF%E4%BF%AE%E6%94%B9)
+      4. [模板](#%E6%A8%A1%E6%9D%BF)
+      5. [常用命令](#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4)
+         1. [运行网站](#%E8%BF%90%E8%A1%8C%E7%BD%91%E7%AB%99)
+         2. [生成应用的迁移](#%E7%94%9F%E6%88%90%E5%BA%94%E7%94%A8%E7%9A%84%E8%BF%81%E7%A7%BB)
+         3. [应用迁移到网站](#%E5%BA%94%E7%94%A8%E8%BF%81%E7%A7%BB%E5%88%B0%E7%BD%91%E7%AB%99)
+         4. [database API](#database-API)
+            1. [进入专用python解释器](#%E8%BF%9B%E5%85%A5%E4%B8%93%E7%94%A8python%E8%A7%A3%E9%87%8A%E5%99%A8)
+            2. [添加记录](#%E6%B7%BB%E5%8A%A0%E8%AE%B0%E5%BD%95)
+      6. [注意事项](#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)
+   5. [页面设计纪要](#%E9%A1%B5%E9%9D%A2%E8%AE%BE%E8%AE%A1%E7%BA%AA%E8%A6%81)
+      1. [仪表盘](#%E4%BB%AA%E8%A1%A8%E7%9B%98)
 ---
 
 ## 简介
@@ -162,7 +163,8 @@ sudo update-alternatives --config python
 🔗 [Bootstrap教程](https://www.w3schools.com/bootstrap4/default.asp)  
 🔗 [Bootstrap官方文档](https://getbootstrap.com/docs/4.3/getting-started/introduction/)  
 🔗 [JavaScript教程](https://www.w3schools.com/js/default.asp)  
-🔗 [Django中文文档](https://docs.djangoproject.com/zh-hans/2.1/)
+🔗 [Django官方文档中文版](https://docs.djangoproject.com/zh-hans/2.1/) (翻译不全)  
+🔗 [Django**2.2**文档个人中文翻译](http://www.liujiangblog.com/course/django/2)
 
 ### 管理
 
@@ -199,6 +201,12 @@ def get_readonly_fields(self, request, obj=None):
     else:  # This is an addition
         return []
 ```
+
+#### 模板
+
+🔗 参考链接:
+- [模板的导入和继承, 静态文件的使用](https://blog.csdn.net/qq_33961117/article/details/83993039)
+- [Django2.2文档翻译-模板层](http://www.liujiangblog.com/course/django/145)
 
 🔗 [参考](https://stackoverflow.com/questions/7860612/django-admin-make-field-editable-in-add-but-not-edit)
 
@@ -282,3 +290,21 @@ from oncar.models import Speed
   https://www.example.com/myapp/ 时，它会尝试匹配 myapp/ 。处理请求
   https://www.example.com/myapp/?page=3 时，也只会尝试匹配 myapp/。
 - 🔗[django模型中auto_now和auto_now_add的区别](https://www.cnblogs.com/vincenshen/articles/7659763.html)
+
+### 页面设计纪要
+
+#### 仪表盘
+
+最开始自己手搓的仪表盘显得有些卡顿, 能达到0.5秒级刷新, 再快很容易让chrome崩溃. 这个刷新率听起来不低, 0.5s的延迟在汽车上不算高, 但呈现出来的**变化过程不够平滑**, 给人一种卡顿感.
+
+🔗 [这个](https://www.codewall.co.uk/creating-gauge-charts-with-the-justgage-javascript-library/)是一个最简陋的有平滑移动的仪表盘的教程
+
+🔗 [这个](https://www.pubnub.com/blog/streaming-sensor-readings-realtime-gauge-chart/)是一个用树莓派读取传感器参数并显示在网页仪表盘的实例
+
+🔗 [这个](https://developers.google.com/chart/interactive/docs/gallery/gauge)是Google Charts的**朴素派**仪表 (效果如下图)
+
+![1570749713523](doc/google_gauge.png)
+
+🔗 [这个](https://www.cssscript.com/demo/canvas-based-html5-gauge-library-gauge-js/)是目前找到最符合赛车样式的仪表
+
+![1570750083870](doc/car_gauge.png)
