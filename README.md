@@ -60,8 +60,6 @@
 #### TODO
 
 - 开机动画. 可参考 🔗[YouTube上一个人给树莓派换Spalsh Screen](https://www.youtube.com/watch?v=VK_eBe53Stc)
-- (添加 oncar 界面的内容), 详情参见[oncar面板设计草稿](doc/furyTerminal/oncar/面板设计草稿.md)
-- 禁止右键菜单. 可参考 🔗[这个百度知道](https://jingyan.baidu.com/article/ed2a5d1fac6f6c09f6be179b.html)
 - 树莓派开机自启指定网页. 可参考 🔗[这里](https://blog.csdn.net/szu_Vegetable_Bird/article/details/80231660)
 - 写一个函数来解析CAN总线里读出的数据
 
@@ -129,6 +127,14 @@ sudo update-alternatives --config python
 位于`/test`文件夹下的为各部分测试程序
 
 ## 车载网站 (交互平台)
+
+之所以选择做网站是因为网站是最容易实现的GUI, 也能很轻松地接入大量库, 轻松实现远程访问等功能.
+
+只要开机自启浏览器全屏模式, 用代码避免误触露出端倪, 根本看不出是网页!🎉
+
+防止误触露出端倪具体来说指**隐藏鼠标图标**, **禁用右键菜单**, **禁止选中**等
+
+🔗 [防止误触相关代码](https://blog.csdn.net/jx950915/article/details/80346530)
 
 本网站基于 **Django** 框架和 **Bootsrap** 框架.
 

@@ -24,6 +24,44 @@
   {% endblock scripts %}
 
   <title>{%block title%}Title{% endblock %}</title>
+  <!--hide cursor-->
+  <style>
+    html {
+      cursor: none;
+    }
+  </style>
+  <script>
+    //forbid right-click menu
+    document.oncontextmenu = function (event) {
+      if (window.event) {
+        event = window.event;
+      }
+      try {
+        var the = event.srcElement;
+        if (!((the.tagName == "INPUT" && the.type.toLowerCase() == "text") || the.tagName == "TEXTAREA")) {
+          return false;
+        }
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+    // forbid select
+    document.onselectstart = function (event) {
+      if (window.event) {
+        event = window.event;
+      }
+      try {
+        var the = event.srcElement;
+        if (!((the.tagName == "INPUT" && the.type.toLowerCase() == "text") || the.tagName == "TEXTAREA")) {
+          return false;
+        }
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+  </script>
 </head>
 
 <body style="background-color:rgb(10, 20, 30)">

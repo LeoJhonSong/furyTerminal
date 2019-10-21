@@ -3,5 +3,6 @@
         "makemigrations",
         "oncar",
         "readonly"
-    ]
+    ],
+    "todo-tree.filtering.excludeGlobs": ["README.md"]
 }
