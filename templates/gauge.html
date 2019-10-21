@@ -1,42 +1,103 @@
 {% load static %}
 <style>
     @font-face {
-        font-family: WorkSans-Thin;
-        src: url({% static 'Titillium.ttf' %});
+        font-family: Titillium;
+        src: url({% static 'fonts/Titillium.ttf' %});
     }
 
     div {
-        font-family: Tit;
+        font-family: Titillium;
+    }
+
+    .gauges {
+        width: 30vw;
+        height: 30vw;
+        position: relative;
+        float: left;
+    }
+
+    .gauge-unit-text {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        color: gray;
+        font-size: 3vmin;
+        transform: translate(-50%, 0%);
     }
 </style>
-<div style="width: 50vmin; height: 50vmin; position: relative;">
-    <div class="value-xt" style="position: absolute; top: 60%; left: 50%; color: gray; font-size: 3vmin;transform: translate(-50%, 0%);">km/h</div>
-    <div id="speed-gauge" class="gauge-container">
+
+<div style="margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 90vw; height: 30vw;">
+    <div class="gauges">
+        <div class="gauge-unit-text">km/h</div>
+        <div class="gauge-container" id="speed-gauge"></div>
+    </div>
+    <div class="gauges">
+        <div class="gauge-unit-text">W</div>
+        <div class="gauge-container" id="power-gauge"></div>
+    </div>
+    <div class="gauges">
+        <div class="gauge-unit-text">SOC</div>
+        <div class="gauge-container" id="soc-gauge"></div>
     </div>
 </div>
+
 
 <script src="{% static 'svg-modern-gauge/gauge.min.js' %}"></script>
 <script>
     var speedGauge = Gauge(
         document.getElementById("speed-gauge"), {
-        min: 0,
-        max: 80,
-        //dialStartAngle: 180,
-        //dialEndAngle: 0,
-        //value: 0,
-        //viewBox: "0 0 100 57",
-        color: function (value) {
-            if (value < 20) {
-                return "#0187ad";
-            } else if (value < 40) {
-                return "#0166aa";
-            } else if (value < 60) {
-                return "#0033ff";
-            } else {
-                return "#0000ff";
+            min: 0,
+            max: 80,
+            //dialStartAngle: 180,
+            //dialEndAngle: 0,
+            //value: 0,
+            //viewBox: "0 0 100 57",
+            color: function (value) {
+                if (value < 20) {
+                    return "#0187ad";
+                } else if (value < 40) {
+                    return "#0166aa";
+                } else if (value < 60) {
+                    return "#0033ff";
+                } else {
+                    return "#0000ff";
+                }
             }
         }
-    }
+    );
+    var powerGauge = Gauge(
+        document.getElementById("power-gauge"), {
+            min: 0,
+            max: 80,//FIXME: check the maax value
+            color: function (value) {
+                if (value < 20) {
+                    return "#0187ad";
+                } else if (value < 40) {
+                    return "#0166aa";
+                } else if (value < 60) {
+                    return "#0033ff";
+                } else {
+                    return "#0000ff";
+                }
+            }
+        }
+    );
+    var socGauge = Gauge(
+        document.getElementById("soc-gauge"), {
+            min: 0,
+            max: 100,
+            color: function (value) {
+                if (value < 20) {
+                    return "#0187ad";
+                } else if (value < 40) {
+                    return "#0166aa";
+                } else if (value < 60) {
+                    return "#0033ff";
+                } else {
+                    return "#0000ff";
+                }
+            }
+        }
     );
 </script>
 
