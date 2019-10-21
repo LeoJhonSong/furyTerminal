@@ -58,7 +58,7 @@
 #### TODO
 
 - 开机动画. 可参考 🔗[YouTube上一个人给树莓派换Spalsh Screen](https://www.youtube.com/watch?v=VK_eBe53Stc)
-- 添加 oncar 界面的内容, 详情参见[oncar面板设计草稿](doc/furyTerminal/oncar/面板设计草稿.md)
+- (添加 oncar 界面的内容), 详情参见[oncar面板设计草稿](doc/furyTerminal/oncar/面板设计草稿.md)
 - 禁止右键菜单. 可参考 🔗[这个百度知道](https://jingyan.baidu.com/article/ed2a5d1fac6f6c09f6be179b.html)
 - 树莓派开机自启指定网页. 可参考 🔗[这里](https://blog.csdn.net/szu_Vegetable_Bird/article/details/80231660)
 - 写一个函数来解析CAN总线里读出的数据
@@ -68,12 +68,7 @@
 - oncar界面部分数据 (车速, 油门等) 刷新不及时, 暂时有以下两种解决思路:
   - 怀疑是后端数据库更新数据太频繁导致前端请求速度过慢, 考虑不从数据库请求数据, 即, 先将传感器
     读到的数据发送给model, 这样model不需要从后端读取数据, 另一方面后端记录的数据密度也许不需要这么大
-- 考虑使用websocket
-- 监听一个端口不知道可不可以
-参考 🔗
-- [后端主动向前段推送消息的几种方式（转）](https://blog.csdn.net/justyou_and_me/article/details/88218199)
-- [知乎-服务端是如何主动推送信息到客户端的？](https://www.zhihu.com/question/24938934)
-- [服务器有新消息主动推送给客户端浏览器](https://blog.csdn.net/qq_35448976/article/details/78783698)
+- 考虑用js调用本地python脚本并传回参数来提速
 
 #### Milestone
 
@@ -131,18 +126,28 @@ sudo update-alternatives --config python
 
 本网站基于 **Django** 框架和 **Bootsrap** 框架.
 
+### 站点地图
+
+- `/` (Home Page)
+  - `/oncar`
+    - `/` (车手页面)
+    - `/devices` (赛前设备状态检查页)
+    - `/safety-circuit` (安全回路检查页)
+    - `/refresh` (不是访问页面, 是给车手页面刷新数据的)
+  - `/remote`
+
 ### 如此选择的优缺点
 
 #### Django
 
 ##### 优点
 
-- 是一个python框架, 数据处理很方便.
+- 是一个python框架, 数据处理很方便, 容易接入ROS
 - 容易上手. 个人认为结合了前后端, 更偏向后端, 但前端能很容易的结合前端
 
 ##### 缺点
 
-暂时不知道
+速度不算快
 
 #### Bootstrap
 

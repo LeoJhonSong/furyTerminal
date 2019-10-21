@@ -1,0 +1,43 @@
+{% load static %}
+<style>
+    @font-face {
+        font-family: WorkSans-Thin;
+        src: url({% static 'Titillium.ttf' %});
+    }
+
+    div {
+        font-family: Tit;
+    }
+</style>
+<div style="width: 50vmin; height: 50vmin; position: relative;">
+    <div class="value-xt" style="position: absolute; top: 60%; left: 50%; color: gray; font-size: 3vmin;transform: translate(-50%, 0%);">km/h</div>
+    <div id="speed-gauge" class="gauge-container">
+    </div>
+</div>
+
+<script src="{% static 'svg-modern-gauge/gauge.min.js' %}"></script>
+<script>
+    var speedGauge = Gauge(
+        document.getElementById("speed-gauge"), {
+        min: 0,
+        max: 80,
+        //dialStartAngle: 180,
+        //dialEndAngle: 0,
+        //value: 0,
+        //viewBox: "0 0 100 57",
+        color: function (value) {
+            if (value < 20) {
+                return "#0187ad";
+            } else if (value < 40) {
+                return "#0166aa";
+            } else if (value < 60) {
+                return "#0033ff";
+            } else {
+                return "#0000ff";
+            }
+        }
+    }
+    );
+</script>
+
+<!-- speedGauge.setValue(current_speed) -->
