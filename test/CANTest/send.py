@@ -7,7 +7,7 @@ os.system('sudo ifconfig can0 up')
 
 can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')# socketcan_native
 
-msg = can.Message(arbitration_id=0x123, data=[3, 1, 4, 1, 5, 9, 2, 6], extended_id=False)
+msg = can.Message(arbitration_id=0x123, data=[13, 1, 4, 1, 5, 9, 2, 6], extended_id=False)
 can0.send(msg)
 
 os.system('sudo ifconfig can0 down')
