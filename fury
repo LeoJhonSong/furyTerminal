@@ -11,19 +11,22 @@ def sh(command):
 
 
 def runServer():
-    sh('python manage.py runserver 0:8000')
+    sh('python ./manage.py runserver 0:8000')
 
+def testModule():
+    pass
 
 def makeMigrationMigrate():
     sh('''
-    python manage.py makemigrations
-    python manage.py migrate
+    python ./manage.py makemigrations
+    python ./manage.py migrate
     ''')
 
 
 command = {
     'default': runServer,
     'r': runServer,
+    't': testModule,
     'm': makeMigrationMigrate
 }
 
