@@ -1,13 +1,10 @@
 import os
 import can
 
-# FIXME: check if second one works
-# can.rc['interface'] = 'socketcan_ctypes'
 can.rc['interface'] = 'socketcan'
 can.rc['channel'] = 'can0'
-can.rc['bitrate'] = 500000  # 500k bits/s
+can.rc['bitrate'] = 250000  # 250k bits/s
 idList = [
-    # FIXME: some are extended frame?
     0x203,  # 安全回路状态、油门深度、刹车深度、控制状态标志、给定转矩
     0x186040F3,  # 电压、电流、SoC
     0x186240F3,  # 电池最高温度
@@ -42,7 +39,7 @@ class CAN(object):
     """
 
     def __init__(self):
-        # FIXME: it seems this two line should be in the auto run when power up
+        # FIXME: it seems this two line should be in the auto run when power up, or does it works?
         os.system('sudo ip link set ' + can.rc['channel'] + ' type can bitrate ' + str(can.rc['bitrate']))
         os.system('sudo ifconfig ' + can.rc['channel'] + ' up')
         self.bus = can.interface.Bus()
@@ -58,18 +55,21 @@ class CAN(object):
         """
         return the `arbitration id` and 8 item `decimal number list` of a CAN message
 
-        `big-endian` (low bit first) different from little-endian in VCU!
+        `big-endian` (low bit first)
         """
         # wait indefinitely when no massage
         msg = self.bus.recv()
         data = [int(str(bit)) for bit in msg.data]  # FIXME: int()
-        return msg.arbitration_id, data[::-1]  # change from little-endian to big-endian
+        return hex(msg.arbitration_id), data
 
     def read(self, id, data):
         """
         switch to read function by `arbitration id`
         """
-        eval(readSwitch[id])()
+        # just for 0x203 now
+        if id != 0x203:
+            return 'not available yet'
+        eval(readSwitch[id])(data)
 
     def read_0x203(self, data):
         """
@@ -142,4 +142,10 @@ class CAN(object):
 
 
 if __name__ == "__main__":
-    pass
+    can0 = CAN()
+    while True:
+        id, data = can0.decode()
+        can0.read(id, data)
+        i = os.system('clear')
+        for item in can0.state:
+            print(item)

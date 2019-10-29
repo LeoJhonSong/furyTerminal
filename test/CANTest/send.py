@@ -2,7 +2,7 @@ import os
 import can
 
 
-os.system('sudo ip link set can0 type can bitrate 500000')  # FIXME: does this matter?
+os.system('sudo ip link set can0 type can bitrate 250000')
 os.system('sudo ifconfig can0 up')
 
 can0 = can.interface.Bus(channel='can0', bustype='socketcan_ctypes')  # socketcan_native
