@@ -3,6 +3,7 @@ from django.http import JsonResponse
 import json
 from .models import Speed
 
+
 max_speed = 80
 
 
