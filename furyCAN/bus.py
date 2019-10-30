@@ -142,10 +142,10 @@ class CAN(object):
 
 
 if __name__ == "__main__":
-    can0 = CAN()
+    can1 = CAN()
     while True:
-        id, data = can0.decode()
-        can0.read(id, data)
+        id, data = can1.decode()
+        can1.read(id, data)
         i = os.system('clear')
-        for item in can0.state:
+        for item in can1.state:
             print(item)
