@@ -8,7 +8,6 @@ max_speed = 80
 
 
 def index(request):
-    # FIXME: write to a file instead
     current_speed = Speed.objects.order_by('-speed_time')[0].speed_value
     context = {
         'current_speed': current_speed,
