@@ -5,13 +5,13 @@ can.rc['interface'] = 'socketcan'
 can.rc['channel'] = 'can0'
 can.rc['bitrate'] = 250000  # 250k bits/s
 idList = [
-    0x203,  # 安全回路状态、油门深度、刹车深度、控制状态标志、给定转矩
-    0x186040F3,  # 电压、电流、SoC
+    0x203,  # 安全回路状态, 油门深度, 刹车深度, 控制状态标志, 给定转矩
+    0x186040F3,  # 电压, 电流, SoC
     0x186240F3,  # 电池最高温度
-    0x180,  # 转角、转速、有效位
+    0x180,  # 转角, 转速, 有效位
     0x204,  # 姿态信息
     0x186140F3,  # 电池单体状态
-    0x186340F4,  # 继电器状态、充电状态信息
+    0x186340F4,  # 继电器状态, 充电状态信息
     # TODO  # 其他信息，见科列BMS协议
 ]
 # a list of read function name string
@@ -39,9 +39,6 @@ class CAN(object):
     """
 
     def __init__(self):
-        # FIXME: it seems this two line should be in the auto run when power up, or does it works?
-        os.system('sudo ip link set ' + can.rc['channel'] + ' type can bitrate ' + str(can.rc['bitrate']))
-        os.system('sudo ifconfig ' + can.rc['channel'] + ' up')
         self.bus = can.interface.Bus()
         self.bus.set_filters(
             [{'can_id': item, 'can_mask': idMask} for item in idList])
@@ -49,7 +46,6 @@ class CAN(object):
 
     def kill(self):
         self.bus.shutdown()
-        os.system('sudo ifconfig ' + can.rc['channel'] + ' down')
 
     def decode(self):
         """
@@ -59,17 +55,14 @@ class CAN(object):
         """
         # wait indefinitely when no massage
         msg = self.bus.recv()
-        data = [int(str(bit)) for bit in msg.data]  # FIXME: int()
-        return hex(msg.arbitration_id), data
+        data = [int(str(bit)) for bit in msg.data]
+        return hex(msg.arbitration_id), data  # hex() return a str
 
     def read(self, id, data):
         """
         switch to read function by `arbitration id`
         """
-        # just for 0x203 now
-        if id != 0x203:
-            return 'not available yet'
-        eval(readSwitch[id])(data)
+        eval('self.' + readSwitch[id])(data)
 
     def read_0x203(self, data):
         """
@@ -115,10 +108,10 @@ class CAN(object):
         """
         if data[0] == 1:
             # allFlag
-            allFlag = bin(data[1]*256 + data[2])[2:]
+            allFlag = bin(data[1] * 256 + data[2])[2:]
             allFlagList = [int(item) for item in allFlag]
             # actually not necessary to add zeros
-            for i in range(16-len(allFlag)):
+            for i in range(16 - len(allFlag)):
                 allFlagList.insert(0, 0)
             allFlagList = allFlagList[::-1]
             for i in range(len(allFlagContent)):
@@ -129,16 +122,53 @@ class CAN(object):
             self.state['finalSend'] = data[5] * 256 + data[6]
             self.state['gear'] = data[7]
         elif data[0] == 2:
-            self.state['rotateSpeed'] = (data[1] * 256 + data[2]) / 2 - 100000
-            self.state['Speed'] = self.state['rotateSpeed'] * 0.0157  # 0.0157 is a total argument
+            self.state['rotateSpeed'] = (data[1] * 256 + data[2]) / 2 - 10000
+            # 0.0157 is a total argument
+            self.state['Speed'] = self.state['rotateSpeed'] * 0.0157
             self.state['mcMassage1'] = data[3]
             self.state['mcMassage2'] = data[4]
-            self.state['mcuTemp'] = data[5]
-            self.state['motorTemp'] = data[6]
+            self.state['mcuTemp'] = data[5] - 50
+            self.state['motorTemp'] = data[6] - 50
         elif data[0] == 3:
             self.state['dcMainVoltage'] = (data[1] * 256 + data[2]) / 10
             self.state['dcMainCurrent'] = (data[3] * 256 + data[4]) / 10 - 1600
             self.state['acCurrent'] = (data[5] * 256 + data[6]) / 10 - 1600
+
+    def read_0x186040F3(self, data):
+        """
+        电压, 电流, SoC
+        """
+        pass
+
+    def read_0x186240F3(self, data):
+        """
+        电池最高温度
+        """
+        pass
+
+    def read_0x180(self, data):
+        """
+        转角, 转速, 有效位
+        """
+        pass
+
+    def read_0x204(self, data):
+        """
+        姿态信息
+        """
+        pass
+
+    def read_0x186140F3(self, data):
+        """
+        电池单体状态
+        """
+        pass
+
+    def read_0x186340F4(self, data):
+        """
+        继电器状态, 充电状态信息
+        """
+        pass
 
 
 if __name__ == "__main__":
@@ -148,4 +178,4 @@ if __name__ == "__main__":
         can1.read(id, data)
         i = os.system('clear')
         for item in can1.state:
-            print(item)
+            print(str(item) + ': ' + str(can1.state[item]))

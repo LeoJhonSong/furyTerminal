@@ -2,8 +2,8 @@ import os
 import can
 
 
-os.system('sudo ip link set can0 type can bitrate 250000')  # 500k bitrate
-os.system('sudo ifconfig can0 up')
+# os.system('sudo ip link set can0 type can bitrate 250000')  # 500k bitrate
+# os.system('sudo ifconfig can0 up')
 
 can0 = can.interface.Bus(channel='can0', bustype='socketcan')
 
@@ -19,4 +19,4 @@ for msg in can0:
 if msg is None:
     print('Timeout occurred, no message.')
 
-os.system('sudo ifconfig can0 down')
+# os.system('sudo ifconfig can0 down')
