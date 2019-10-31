@@ -2,8 +2,8 @@
 # -*- coding: UTF-8 -*-
 # Powerful client of furyTerminal
 
-import sys
 import os
+import sys
 
 
 def sh(command):
@@ -13,8 +13,10 @@ def sh(command):
 def runServer():
     sh('python ./manage.py runserver 0:8000')
 
+
 def testModule():
     pass
+
 
 def makeMigrationMigrate():
     sh('''
@@ -23,11 +25,33 @@ def makeMigrationMigrate():
     ''')
 
 
+def setup():
+    sh('''
+    sudo apt install bc
+    sudo apt install python3 python
+    pip3 install django
+    pip3 install python-can
+    ''')
+
+
+def staticIP():
+    pass
+
+
+def config():
+    options = {
+        'IP': staticIP,
+    }
+    pass
+
+
 command = {
     'default': runServer,
     'r': runServer,
     't': testModule,
-    'm': makeMigrationMigrate
+    'm': makeMigrationMigrate,
+    'setup': setup,
+    'config': config,
 }
 
 main = command[sys.argv[1] if len(sys.argv) > 1 else 'default']
