@@ -11,8 +11,7 @@ idList = [
     0x180,  # 转角, 转速, 有效位
     0x204,  # 姿态信息
     0x186140F3,  # 电池单体状态
-    0x186340F4,  # 继电器状态, 充电状态信息
-    # TODO  # 其他信息，见科列BMS协议
+    0x186340F4,  # 继电器状态, 充电状态信息  # FIXME: change to from VCU
 ]
 # a list of read function name string
 readSwitch = {
@@ -72,9 +71,9 @@ class CAN(object):
             1: allFlag (H),
             2: allFlag (L),
             3: acFinal,
-            4: brAdFinal,
-            5: finalSend (H),
-            6: finalSend (L),
+            4: brFinal,
+            5: finalSendTorque (H),
+            6: finalSendTorque (L),
             7: gear
 
         when vcuFlag is 2:
@@ -110,7 +109,6 @@ class CAN(object):
             # allFlag
             allFlag = bin(data[1] * 256 + data[2])[2:]
             allFlagList = [int(item) for item in allFlag]
-            # actually not necessary to add zeros
             for i in range(16 - len(allFlag)):
                 allFlagList.insert(0, 0)
             allFlagList = allFlagList[::-1]
@@ -119,32 +117,43 @@ class CAN(object):
 
             self.state['acFinal'] = data[3]
             self.state['brFinal'] = data[4]
-            self.state['finalSend'] = data[5] * 256 + data[6]
+            self.state['finalSendTorque'] = data[5] * 256 + data[6]  # ‰
             self.state['gear'] = data[7]
         elif data[0] == 2:
-            self.state['rotateSpeed'] = (data[1] * 256 + data[2]) / 2 - 10000
+            self.state['rotateSpeed'] = (data[1] * 256 + data[2]) / 2 - 10000  # rpm
             # 0.0157 is a total argument
-            self.state['Speed'] = self.state['rotateSpeed'] * 0.0157
+            self.state['speed'] = self.state['rotateSpeed'] * 0.0157  # FIXME: what's the unit?
             self.state['mcMassage1'] = data[3]
             self.state['mcMassage2'] = data[4]
-            self.state['mcuTemp'] = data[5] - 50
-            self.state['motorTemp'] = data[6] - 50
+            self.state['mcuTemp'] = data[5] - 50  # ℃
+            self.state['motorTemp'] = data[6] - 50  # ℃
         elif data[0] == 3:
-            self.state['dcMainVoltage'] = (data[1] * 256 + data[2]) / 10
-            self.state['dcMainCurrent'] = (data[3] * 256 + data[4]) / 10 - 1600
-            self.state['acCurrent'] = (data[5] * 256 + data[6]) / 10 - 1600
+            self.state['dcMainVoltage'] = (data[1] * 256 + data[2]) / 10  # V
+            self.state['dcMainCurrent'] = (data[3] * 256 + data[4]) / 10 - 1600  # A
+            self.state['acCurrent'] = (data[5] * 256 + data[6]) / 10 - 1600  # A
+            self.state['power'] = self.state['acCurrent'] * self.state['dcMainVoltage'] / 1000  # kW
 
     def read_0x186040F3(self, data):
         """
         电压, 电流, SoC
+
+        0: batVoltage (H)
+        1: batVoltage (L)
+        2: batCurrent (H)
+        3: batCurrent (L)
+        4: batSoc
         """
-        pass
+        self.state['batVoltage'] = (data[0] * 256 + data[1]) / 10  # V
+        self.state['batCurrent'] = (data[2] * 256 + data[3]) / 10 - 1000  # A
+        self.state['batSoc'] = data[4]  # %
 
     def read_0x186240F3(self, data):
         """
         电池最高温度
+
+        0: batMaxTemp
         """
-        pass
+        self.state['batMaxTemp'] = data[0] - 40  # ℃
 
     def read_0x180(self, data):
         """
@@ -161,8 +170,11 @@ class CAN(object):
     def read_0x186140F3(self, data):
         """
         电池单体状态
+
+        0: maxCellVolt (H)
+        1: maxCellVolt (L)
         """
-        pass
+        self.state['maxCellVolt'] = data[0] * 256 + data[1]  # mV
 
     def read_0x186340F4(self, data):
         """
