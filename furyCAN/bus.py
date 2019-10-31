@@ -171,10 +171,10 @@ class CAN(object):
         """
         电池单体状态
 
-        0: maxCellVolt (H)
-        1: maxCellVolt (L)
+        0: batMaxCellVolt (H)
+        1: batMaxCellVolt (L)
         """
-        self.state['maxCellVolt'] = data[0] * 256 + data[1]  # mV
+        self.state['batMaxCellVolt'] = data[0] * 256 + data[1]  # mV
 
     def read_0x186340F4(self, data):
         """

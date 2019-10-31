@@ -1,24 +1,15 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
-from .models import Speed
-
-
-max_speed = 80
+from .models import State
 
 
 def index(request):
-    current_speed = Speed.objects.order_by('-speed_time')[0].speed_value
-    context = {
-        'current_speed': current_speed,
-        'max_speed': max_speed
-    }
-    return render(request, 'oncar/index.html', context)
+    return render(request, 'oncar/index.html')
 
 
 def refresh(request):
     data = {
-        'current_speed': Speed.objects.order_by('-speed_time')[0].speed_value,
-        'max_speed': max_speed
+        'speed': State.objects.order_by('-time_stamp')[0].speed,
     }
     return JsonResponse(data)
