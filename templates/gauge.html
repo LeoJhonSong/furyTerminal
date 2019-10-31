@@ -9,8 +9,22 @@
         font-family: Titillium;
     }
 
-    .gauges {
-        width: 30vw;
+    .speed-gauges {
+        width: 25vw;
+        height: 30vw;
+        position: relative;
+        float: left;
+    }
+
+    .power-gauges {
+        width: 40vw;
+        height: 30vw;
+        position: relative;
+        float: left;
+    }
+
+    .soc-gauges {
+        width: 25vw;
         height: 30vw;
         position: relative;
         float: left;
@@ -18,24 +32,31 @@
 
     .gauge-unit-text {
         position: absolute;
-        top: 60%;
+        top: 65%;
         left: 50%;
         color: gray;
         font-size: 3vmin;
-        transform: translate(-50%, 0%);
+        transform: translate(-50%, -50%);
+    }
+
+    .gauge-container {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 </style>
 
 <div style="margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 90vw; height: 30vw;">
-    <div class="gauges">
+    <div class="speed-gauges">
         <div class="gauge-unit-text">km/h</div>
         <div class="gauge-container" id="speed-gauge"></div>
     </div>
-    <div class="gauges">
-        <div class="gauge-unit-text">W</div>
+    <div class="power-gauges">
+        <div class="gauge-unit-text">kW</div>
         <div class="gauge-container" id="power-gauge"></div>
     </div>
-    <div class="gauges">
+    <div class="soc-gauges">
         <div class="gauge-unit-text">SOC</div>
         <div class="gauge-container" id="soc-gauge"></div>
     </div>
@@ -43,6 +64,7 @@
 
 
 <script src="{% static 'svg-modern-gauge/gauge.min.js' %}"></script>
+
 <script>
     var speedGauge = Gauge(
         document.getElementById("speed-gauge"), {
@@ -71,13 +93,13 @@
             max: 80,
             color: function (value) {
                 if (value < 20) {
-                    return "#0187ad";
+                    return "#6a5acd";
                 } else if (value < 40) {
-                    return "#0166aa";
+                    return "#8a2be2";
                 } else if (value < 60) {
-                    return "#0033ff";
+                    return "#ba55d3";
                 } else {
-                    return "#0000ff";
+                    return "#ff00ff";
                 }
             }
         }
@@ -87,18 +109,30 @@
             min: 0,
             max: 100,
             color: function (value) {
-                if (value < 20) {
-                    return "#0187ad";
-                } else if (value < 40) {
-                    return "#0166aa";
-                } else if (value < 60) {
-                    return "#0033ff";
+                if (value < 25) {
+                    return "#ff4500";
+                } else if (value < 50) {
+                    return "#ffa500";
+                } else if (value < 75) {
+                    return "#ffff00";
                 } else {
-                    return "#0000ff";
+                    return "#00ff7f";
                 }
             }
         }
     );
 </script>
 
-<!-- speedGauge.setValue(current_speed) -->
+<script>
+    function speed_show() {
+        $.getJSON('/oncar/refresh', {}, function (json) {
+            var current_speed = json.current_speed
+            var max_speed = json.max_speed
+            // svg-modern-gauge
+            speedGauge.setValue(current_speed)
+            // TODO: power-gauge and soc-gauge
+        });
+        setTimeout("speed_show()", 100);
+    }
+    window.onload = speed_show();
+</script>
