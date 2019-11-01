@@ -57,7 +57,7 @@ class CAN(object):
 
         `big-endian` (low bit first)
         """
-        # wait indefinitely when no massage
+        # wait indefinitely when no message
         msg = self.bus.recv()
         data = [int(str(bit)) for bit in msg.data]
         return hex(msg.arbitration_id), data  # hex() return a str
@@ -128,8 +128,8 @@ class CAN(object):
             self.state['rotateSpeed'] = (data[1] * 256 + data[2]) / 2 - 10000  # rpm
             # 0.0157 is a total argument
             self.state['speed'] = self.state['rotateSpeed'] * 0.0157  # FIXME: what's the unit?
-            self.state['mcMassage1'] = data[3]
-            self.state['mcMassage2'] = data[4]
+            self.state['mcMessage1'] = data[3]
+            self.state['mcMessage2'] = data[4]
             self.state['mcuTemp'] = data[5] - 50  # ℃
             self.state['motorTemp'] = data[6] - 50  # ℃
         elif data[0] == 3:
