@@ -38,6 +38,9 @@ class CAN(object):
     """
 
     def __init__(self):
+        # turn on the network or will get bug: Network down
+        os.system('sudo ip link set '+can.rc['channel']+' type can bitrate '+str(can.rc['bitrate']))
+        os.system('sudo ifconfig '+can.rc['channel']+' up')
         self.bus = can.interface.Bus()
         self.bus.set_filters(
             [{'can_id': item, 'can_mask': idMask} for item in idList])
@@ -45,6 +48,8 @@ class CAN(object):
 
     def kill(self):
         self.bus.shutdown()
+        # turn down the network
+        os.system('sudo ifconfig '+can.rc['channel']+' down')
 
     def decode(self):
         """
