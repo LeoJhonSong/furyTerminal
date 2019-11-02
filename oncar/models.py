@@ -41,6 +41,3 @@ class State(models.Model):
     batSoc = models.CharField(max_length=20)
     batMaxTemp = models.CharField(max_length=20)
     batMaxCellVolt = models.CharField(max_length=20)
-
-    def __str__(self):
-        return 'time: ' + str(self.speed_time)
