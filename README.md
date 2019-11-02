@@ -64,14 +64,11 @@
 
 - 开机动画. 可参考 🔗[YouTube上一个人给树莓派换Spalsh Screen](https://www.youtube.com/watch?v=VK_eBe53Stc)
 - 树莓派开机自启指定网页. 可参考 🔗[这里](https://blog.csdn.net/szu_Vegetable_Bird/article/details/80231660)
-- 写一个函数来解析CAN总线里读出的数据
+- 电池箱温度热力图
+- 安全电路状态界面
+- 传感器调试界面
 
 #### FIXME
-
-- oncar界面部分数据 (车速, 油门等) 刷新不及时, 暂时有以下两种解决思路:
-  - 怀疑是后端数据库更新数据太频繁导致前端请求速度过慢, 考虑不从数据库请求数据, 即, 先将传感器
-    读到的数据发送给model, 这样model不需要从后端读取数据, 另一方面后端记录的数据密度也许不需要这么大
-- 考虑用js调用本地python脚本并传回参数来提速
 
 #### Milestone
 
