@@ -65,8 +65,12 @@
 - 开机动画. 可参考 🔗[YouTube上一个人给树莓派换Spalsh Screen](https://www.youtube.com/watch?v=VK_eBe53Stc)
 - 树莓派开机自启指定网页. 可参考 🔗[这里](https://blog.csdn.net/szu_Vegetable_Bird/article/details/80231660)
 - 电池箱温度热力图
-- 安全电路状态界面
-- 传感器调试界面
+- 车手界面电控alert报警
+- 传感器调试, 安全回路状态界面
+  - 油门深度 (单色直柱)
+  - 刹车深度 (单色直柱)
+  - 方向盘转向角 (一个方向盘图)
+  - 安全电路状态图
 
 #### FIXME
 
