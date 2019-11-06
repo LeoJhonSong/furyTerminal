@@ -11,7 +11,10 @@ def sh(command):
 
 
 def runServer():
-    sh('python ./manage.py runserver 0:8000')
+    sh('''
+    python ./manage.py runserver 0:8000 &
+    python ./record.py
+    ''')
 
 
 def testModule():
@@ -26,11 +29,26 @@ def makeMigrationMigrate():
 
 
 def setup():
+    """
+    install necessary packages
+
+    setup autorun configurations
+    """
     sh('''
     sudo apt install bc
     sudo apt install python3 python
     pip3 install django
     pip3 install python-can
+    ''')
+
+    if not os.path.exists(os.path.expanduser('~/.config/autostart/')):
+        os.mkdir(os.path.expanduser('~/.config/autostart/'))
+    sh('cp -f config/oncar.desktop ~/.config/autostart/')
+    if not os.path.exists('/etc/systemd/system/'):
+        os.mkdir('/etc/systemd/system/')
+    sh('''
+    sudo cp -f config/furyTerminal.service /etc/systemd/system/
+    sudo systemctl enable furyTerminal.service
     ''')
 
 
@@ -54,5 +72,7 @@ command = {
     'config': config,
 }
 
+# change cwd first
+os.chdir(sys.path[0])
 main = command[sys.argv[1] if len(sys.argv) > 1 else 'default']
 main()

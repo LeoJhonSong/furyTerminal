@@ -1,0 +1,12 @@
+# disable and enable again after modify
+# sudo systemctl enable/disable furyTerminal.service
+
+[Unit]
+Description = Start furyTerminal Server
+
+[Service]
+Type = forking
+# FIXME: user may cause bug
+ExecStart = su pi && /home/pi/Desktop/furyTerminal/fury r
+
+[Install]
