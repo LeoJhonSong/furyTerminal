@@ -28,19 +28,27 @@ def makeMigrationMigrate():
     ''')
 
 
-def setup():
+def install():
     """
     install necessary packages
-
-    setup autorun configurations
     """
     sh('''
     sudo apt install bc
-    sudo apt install python3
+    sudo apt install python3 python3-dev
+    pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
     pip3 install django
     pip3 install python-can
+    pip3 install mysqlclient
+    sudo apt install mariadb-server mariadb-client
     ''')
+    # sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+    # sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 
+
+def config():
+    """
+    setup autorun configurations
+    """
     if not os.path.exists(os.path.expanduser('~/.config/autostart/')):
         os.mkdir(os.path.expanduser('~/.config/autostart/'))
     sh('cp -f config/oncar.desktop ~/.config/autostart/')
@@ -52,23 +60,12 @@ def setup():
     ''')
 
 
-def staticIP():
-    pass
-
-
-def config():
-    options = {
-        'IP': staticIP,
-    }
-    pass
-
-
 command = {
     'default': runServer,
     'r': runServer,
     't': testModule,
     'm': makeMigrationMigrate,
-    'setup': setup,
+    'install': install,
     'config': config,
 }
 

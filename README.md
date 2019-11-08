@@ -24,9 +24,8 @@
       1. [Django](#Django)
          1. [优点](#优点)
          2. [缺点](#缺点)
-      2. [Bootstrap](#Bootstrap)
-         1. [优点](#优点-1)
-         2. [缺点](#缺点-1)
+      2. [MySQL](#MySQL)
+         1. [MySQL命令简记](#MySQL命令简记)
    3. [管理](#管理)
    4. [oncar](#oncar)
       1. [oncar设计](#oncar设计)
@@ -147,11 +146,13 @@ TODO
 
 只要开机自启浏览器全屏模式, 用代码避免误触露出端倪, 根本看不出是网页!🎉
 
+❗️ 目前树莓派没有设置正常关机方式, 就是断电关机, 因此再次启动chromium时右上角会显示 "Restore pages?" 通过匿名模式开启网页避免出现这个提示.
+
 防止误触露出端倪具体来说指**隐藏鼠标图标**, **禁用右键菜单**, **禁止选中**等
 
 🔗 [防止误触相关代码](https://blog.csdn.net/jx950915/article/details/80346530)
 
-本网站基于 **Django** 框架和 **Bootsrap** 框架.
+本网站基于 **Django** 框架和MySQL数据库.
 
 ### 站点地图
 
@@ -159,7 +160,6 @@ TODO
   - `/oncar`
     - `/` (车手页面)
     - `/devices` (赛前设备状态检查页)
-    - `/safety-circuit` (安全回路检查页)
     - `/refresh` (不是访问页面, 是给车手页面刷新数据的)
   - `/remote`
 
@@ -176,17 +176,24 @@ TODO
 
 速度不算快
 
-#### Bootstrap
+#### MySQL
 
-##### 优点
+一开始使用的是SQLite, 但是[SQLite不支持高并发访问](https://blog.csdn.net/u013690521/article/details/38776709),
+因此改用MySQL.
 
-- 容易上手😅是的不好意思我太菜了
-- 使用容易. 只要在 HTML 页面中插入 Bootstrap 官网给出的模板即可.
-- 被广泛使用, 简洁好看
+##### MySQL命令简记
 
-##### 缺点
+💡 root用户初始密码为空, 只能`su`到root用户进入mysql
 
-- 被一些做前端的程序员认为不能够作出很炫技的效果, 是后端开发者用的东西.
+命令行进入mysql `mysql -u fury -p`
+
+新建数据库 `create database furyTerminal character set utf8;`  
+删除数据库 `drop database furyTerminal;`  
+查看数据库中的数据表 `use furyTerminal; show tables;`  
+新建用户 `create user fury identified by 'fury';`  
+给予用户权限 `grant all privileges on furyTerminal.* to fury;`  
+查看用户权限 `show grants for fury;`  
+查看所有用户 `select user, host from mysql.user;`
 
 👇一些推荐的学习资料
 
@@ -196,13 +203,16 @@ TODO
 🔗 [Bootstrap官方文档](https://getbootstrap.com/docs/4.3/getting-started/introduction/)  
 🔗 [JavaScript教程](https://www.w3schools.com/js/default.asp)  
 🔗 [Django官方文档中文版](https://docs.djangoproject.com/zh-hans/2.1/) (翻译不全)  
-🔗 [Django**2.2**文档个人中文翻译](http://www.liujiangblog.com/course/django/2)
+🔗 [Django**2.2**文档个人中文翻译](http://www.liujiangblog.com/course/django/2)  
+🔗 [Django MySQL数据库文档](https://docs.djangoproject.com/en/2.2/ref/databases/#time-zone-definitions)
 
 ### 管理
 
 管理员账号: leo
 
 密码: leo
+
+💡 添加管理员 `python manage.py createsuperuser`
 
 ### oncar
 
@@ -289,7 +299,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'furyTerminal.settings')
 django.setup()
 ```
 
-具体例子参见[oncar应用的Speed部分的测试](/oncar/test/speed/create.py)
+具体例子参见[oncar应用的Speed部分的测试](test/oncar/speed-gauge/create.py)
 
 ###### 添加记录
 

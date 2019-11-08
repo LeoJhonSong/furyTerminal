@@ -2,6 +2,7 @@
     "cSpell.words": [
         "ctypes",
         "makemigrations",
+        "mariadb",
         "mysqlclient",
         "oncar",
         "readonly"

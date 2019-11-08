@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'furyTerminal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'furyTerminal',
+        'USER': 'fury',
+        'PASSWORD': 'fury',
+        'HOST': '',  # localhost
+        'PORT': '',  # 3306
     }
 }
 
@@ -121,5 +125,5 @@ DATETIME_FORMAT = 'Y-m-d H:i:s:u'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-     os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "static")
 ]
