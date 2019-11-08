@@ -7,7 +7,13 @@
 {% block body-content %}
 
 <div>
-    {% include 'gauge.html' %}
+    {% include 'oncar/gauge.html' %}
+</div>
+
+<div class="temps" style="color: white; font-size: 2vmin;">
+    <div id="mcuTemp"></div>
+    <div id="motorTemp"></div>
+    <div id="batMaxTemp"></div>
 </div>
 
 {% endblock body-content %}

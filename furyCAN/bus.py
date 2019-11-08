@@ -6,12 +6,12 @@ can.rc['channel'] = 'can0'
 can.rc['bitrate'] = 250000  # 250k bits/s
 idList = [
     0x203,  # 安全回路状态, 油门深度, 刹车深度, 控制状态标志, 给定转矩
-    0x186040F3,  # 电压, 电流, SoC
-    0x186240F3,  # 电池最高温度
+    0x186040f3,  # 电压, 电流, SoC
+    0x186240f3,  # 电池最高温度
     0x180,  # 转角, 转速, 有效位
     0x204,  # 姿态信息
-    0x186140F3,  # 电池单体状态
-    0x186340F4,  # 继电器状态, 充电状态信息  # FIXME: change to from VCU
+    0x186140f3,  # 电池单体状态
+    0x186340f4,  # 继电器状态, 充电状态信息  # FIXME: change to from VCU
 ]
 # a list of read function name string
 readSwitch = {
@@ -138,7 +138,7 @@ class CAN(object):
             self.state['acCurrent'] = (data[5] * 256 + data[6]) / 10 - 1600  # A
             self.state['power'] = self.state['acCurrent'] * self.state['dcMainVoltage'] / 1000  # kW
 
-    def read_0x186040F3(self, data):
+    def read_0x186040f3(self, data):
         """
         电压, 电流, SoC
 
@@ -152,7 +152,7 @@ class CAN(object):
         self.state['batCurrent'] = (data[2] * 256 + data[3]) / 10 - 1000  # A
         self.state['batSoc'] = data[4]  # %
 
-    def read_0x186240F3(self, data):
+    def read_0x186240f3(self, data):
         """
         电池最高温度
 
@@ -172,7 +172,7 @@ class CAN(object):
         """
         pass
 
-    def read_0x186140F3(self, data):
+    def read_0x186140f3(self, data):
         """
         电池单体状态
 
@@ -181,7 +181,7 @@ class CAN(object):
         """
         self.state['batMaxCellVolt'] = data[0] * 256 + data[1]  # mV
 
-    def read_0x186340F4(self, data):
+    def read_0x186340f4(self, data):
         """
         继电器状态, 充电状态信息
         """
