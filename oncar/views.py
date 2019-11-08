@@ -1,4 +1,5 @@
 import json
+import os
 
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -21,3 +22,7 @@ def refresh(request):
         'batMaxTemp': latest.batMaxTemp,
     }
     return JsonResponse(data)
+
+
+def poweroff(request):
+    os.system('poweroff')
