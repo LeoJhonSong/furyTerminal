@@ -13,7 +13,7 @@ def sh(command):
 def runServer():
     sh('''
     python ./manage.py runserver 0:8000 &
-    python ./record.py
+    python ./record.py &
     ''')
 
 
@@ -36,7 +36,7 @@ def setup():
     """
     sh('''
     sudo apt install bc
-    sudo apt install python3 python
+    sudo apt install python3
     pip3 install django
     pip3 install python-can
     ''')
