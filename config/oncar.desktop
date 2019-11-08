@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type = Application
 Comment = Display the UI of furyTerminal/oncar
-Exec = chromium-browser -kiosk "http://localhost:8000/oncar/"
+Exec = chromium-browser --incognito -kiosk "http://localhost:8000/oncar/"
