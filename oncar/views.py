@@ -11,5 +11,10 @@ def index(request):
 def refresh(request):
     data = {
         'speed': State.objects.order_by('-time_stamp')[0].speed,
+        'power': State.objects.order_by('-time_stamp')[0].power,
+        'batSoc': State.objects.order_by('-time_stamp')[0].batSoc,
+        'mcuTemp': State.objects.order_by('-time_stamp')[0].mcuTemp,
+        'motorTemp': State.objects.order_by('-time_stamp')[0].motorTemp,
+        'batMaxTemp': State.objects.order_by('-time_stamp')[0].batMaxTemp,
     }
     return JsonResponse(data)

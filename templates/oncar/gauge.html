@@ -9,14 +9,14 @@
         font-family: Titillium;
     }
 
-    .speed-gauges {
+    .power-gauges {
         width: 25vw;
         height: 30vw;
         position: relative;
         float: left;
     }
 
-    .power-gauges {
+    .speed-gauges {
         width: 40vw;
         height: 30vw;
         position: relative;
@@ -48,13 +48,13 @@
 </style>
 
 <div style="margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 90vw; height: 30vw;">
-    <div class="speed-gauges">
-        <div class="gauge-unit-text">km/h</div>
-        <div class="gauge-container" id="speed-gauge"></div>
-    </div>
     <div class="power-gauges">
         <div class="gauge-unit-text">kW</div>
         <div class="gauge-container" id="power-gauge"></div>
+    </div>
+    <div class="speed-gauges">
+        <div class="gauge-unit-text">km/h</div>
+        <div class="gauge-container" id="speed-gauge"></div>
     </div>
     <div class="soc-gauges">
         <div class="gauge-unit-text">SOC</div>
@@ -66,6 +66,23 @@
 <script src="{% static 'svg-modern-gauge/gauge.min.js' %}"></script>
 
 <script>
+    var powerGauge = Gauge(
+        document.getElementById("power-gauge"), {
+            min: 0,
+            max: 80,
+            color: function (value) {
+                if (value < 20) {
+                    return "#6a5acd";
+                } else if (value < 40) {
+                    return "#8a2be2";
+                } else if (value < 60) {
+                    return "#ba55d3";
+                } else {
+                    return "#ff00ff";
+                }
+            }
+        }
+    );
     var speedGauge = Gauge(
         document.getElementById("speed-gauge"), {
             min: 0,
@@ -83,23 +100,6 @@
                     return "#0033ff";
                 } else {
                     return "#0000ff";
-                }
-            }
-        }
-    );
-    var powerGauge = Gauge(
-        document.getElementById("power-gauge"), {
-            min: 0,
-            max: 80,
-            color: function (value) {
-                if (value < 20) {
-                    return "#6a5acd";
-                } else if (value < 40) {
-                    return "#8a2be2";
-                } else if (value < 60) {
-                    return "#ba55d3";
-                } else {
-                    return "#ff00ff";
                 }
             }
         }
@@ -126,10 +126,19 @@
 <script>
     function speed_show() {
         $.getJSON('/oncar/refresh', {}, function (json) {
+            var power = json.power
             var speed = json.speed
+            var batSoc = json.batSoc
+            var mcuTemp = json.mcuTemp
+            var motorTemp = json.motorTemp
+            var batMaxTemp = json.batMaxTemp
             // svg-modern-gauge
+            powerGauge.setValue(power)
             speedGauge.setValue(speed)
-            // TODO: power-gauge and soc-gauge
+            socGauge.setValue(batSoc)
+            document.getElementById('mcuTemp').innerHTML = '电控温度: ' + mcuTemp
+            document.getElementById('motorTemp').innerHTML = '电机温度: ' + motorTemp
+            document.getElementById('batMaxTemp').innerHTML = '电池温度: ' + batMaxTemp
         });
         setTimeout("speed_show()", 100);
     }
