@@ -1,6 +1,8 @@
-from django.shortcuts import render
-from django.http import JsonResponse
 import json
+
+from django.http import JsonResponse
+from django.shortcuts import render
+
 from .models import State
 
 
@@ -9,12 +11,13 @@ def index(request):
 
 
 def refresh(request):
+    latest = State.objects.order_by('-time_stamp')[0]
     data = {
-        'speed': State.objects.order_by('-time_stamp')[0].speed,
-        'power': State.objects.order_by('-time_stamp')[0].power,
-        'batSoc': State.objects.order_by('-time_stamp')[0].batSoc,
-        'mcuTemp': State.objects.order_by('-time_stamp')[0].mcuTemp,
-        'motorTemp': State.objects.order_by('-time_stamp')[0].motorTemp,
-        'batMaxTemp': State.objects.order_by('-time_stamp')[0].batMaxTemp,
+        'speed': latest.speed,
+        'power': latest.power,
+        'batSoc': latest.batSoc,
+        'mcuTemp': latest.mcuTemp,
+        'motorTemp': latest.motorTemp,
+        'batMaxTemp': latest.batMaxTemp,
     }
     return JsonResponse(data)
