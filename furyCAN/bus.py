@@ -31,6 +31,19 @@ allFlagContent = [
     'ycAllowFlag'
 ]
 
+mcMessageContent = [
+    'mcReady',
+    'ycReady',
+    'resolverFlag',
+    'currentOverloadFlag',
+    'voltageOverloadFlag',
+    'ctlPointFlag',
+    'voltageUnderloadFlag',
+    'powerLimitFlag',
+    'mcTempFlag',
+    'motorTempFlag'
+]
+
 
 class CAN(object):
     """
@@ -39,8 +52,8 @@ class CAN(object):
 
     def __init__(self):
         # turn on the network or will get bug: Network down
-        os.system('sudo ip link set '+can.rc['channel']+' type can bitrate '+str(can.rc['bitrate']))
-        os.system('sudo ifconfig '+can.rc['channel']+' up')
+        os.system('sudo ip link set ' + can.rc['channel'] + ' type can bitrate ' + str(can.rc['bitrate']))
+        os.system('sudo ifconfig ' + can.rc['channel'] + ' up')
         self.bus = can.interface.Bus()
         self.bus.set_filters(
             [{'can_id': item, 'can_mask': idMask} for item in idList])
@@ -49,7 +62,7 @@ class CAN(object):
     def kill(self):
         self.bus.shutdown()
         # turn down the network
-        os.system('sudo ifconfig '+can.rc['channel']+' down')
+        os.system('sudo ifconfig ' + can.rc['channel'] + ' down')
 
     def decode(self):
         """
@@ -66,7 +79,8 @@ class CAN(object):
         """
         switch to read function by `arbitration id`
         """
-        eval('self.' + readSwitch[id])(data)
+        if id in readSwitch.keys():
+            eval('self.' + readSwitch[id])(data)
 
     def read_0x203(self, data):
         """
@@ -98,27 +112,31 @@ class CAN(object):
             6: acCurrent (L)
 
         allFlag:
-            (L)
-                0: acReliableFlag,
-                1: acBrReliableFlag,
-                2: startFlag,
-                3: runFlag,
-                4: driveReadyFlag,
-                5: SafetyFlag,
-                6: brFlag,
-                7: zfAllowFlag
             (H)
-                8: ycAllowFlag,
+                7: ycAllowFlag,
+            (L)
+                0: zfAllowFlag
+                1: brFlag,
+                2: SafetyFlag,
+                3: driveReadyFlag,
+                4: runFlag,
+                5: startFlag,
+                6: acBrReliableFlag,
+                7: acReliableFlag,
         """
         if data[0] == 1:
             # allFlag
             allFlag = bin(data[1] * 256 + data[2])[2:]
-            allFlagList = [int(item) for item in allFlag]
-            for i in range(16 - len(allFlag)):
-                allFlagList.insert(0, 0)
-            allFlagList = allFlagList[::-1]
+            allFlag = allFlag[::-1]
             for i in range(len(allFlagContent)):
-                self.state[allFlagContent[i]] = allFlagList[i]
+                self.state[allFlagContent[i]] = allFlag[i]
+            # TODO: maybe can be deleted
+            # allFlagList = [int(item) for item in allFlag]
+            # for i in range(16 - len(allFlag)):
+            #     allFlagList.insert(0, 0)
+            # allFlagList = allFlagList[::-1]
+            # for i in range(len(allFlagContent)):
+            #     self.state[allFlagContent[i]] = allFlagList[i]
 
             self.state['acFinal'] = data[3]
             self.state['brFinal'] = data[4]
@@ -127,9 +145,12 @@ class CAN(object):
         elif data[0] == 2:
             self.state['rotateSpeed'] = (data[1] * 256 + data[2]) / 2 - 10000  # rpm
             # 0.0157 is a total argument
-            self.state['speed'] = self.state['rotateSpeed'] * 0.0157  # FIXME: what's the unit?
-            self.state['mcMessage1'] = data[3]
-            self.state['mcMessage2'] = data[4]
+            self.state['speed'] = self.state['rotateSpeed'] * 0.0157  # km/h
+            # mcMessages
+            mcMessage = bin(data[3] * 256 + data[4])[2:]
+            for i in range(len(mcMessageContent)):
+                self.state[mcMessageContent[i]] = mcMessage[i]
+
             self.state['mcuTemp'] = data[5] - 50  # ℃
             self.state['motorTemp'] = data[6] - 50  # ℃
         elif data[0] == 3:
@@ -164,7 +185,7 @@ class CAN(object):
         """
         转角, 转速, 有效位
         """
-        pass
+        self.state['steeringWheelAngle'] = 0  # TODO: to be finished
 
     def read_0x204(self, data):
         """

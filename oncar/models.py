@@ -13,6 +13,7 @@ class Speed(models.Model):
 
 class State(models.Model):
     time_stamp = models.DateTimeField(auto_now_add=True)
+    # allFlags
     acReliableFlag = models.CharField(max_length=20)
     acBrReliableFlag = models.CharField(max_length=20)
     startFlag = models.CharField(max_length=20)
@@ -22,14 +23,25 @@ class State(models.Model):
     brFlag = models.CharField(max_length=20)
     zfAllowFlag = models.CharField(max_length=20)
     ycAllowFlag = models.CharField(max_length=20)
+
     acFinal = models.CharField(max_length=20)
     brFinal = models.CharField(max_length=20)
     finalSendTorque = models.CharField(max_length=20)
     gear = models.CharField(max_length=20)
     rotateSpeed = models.CharField(max_length=20)
     speed = models.CharField(max_length=20)
-    mcMessage1 = models.CharField(max_length=20)
-    mcMessage2 = models.CharField(max_length=20)
+    # mcMessages
+    mcReady = models.CharField(max_length=20)
+    ycReady = models.CharField(max_length=20)
+    resolverFlag = models.CharField(max_length=20)
+    currentOverloadFlag = models.CharField(max_length=20)
+    voltageOverloadFlag = models.CharField(max_length=20)
+    ctlPointFlag = models.CharField(max_length=20)
+    voltageUnderloadFlag = models.CharField(max_length=20)
+    powerLimitFlag = models.CharField(max_length=20)
+    mcTempFlag = models.CharField(max_length=20)
+    motorTempFlag = models.CharField(max_length=20)
+
     mcuTemp = models.CharField(max_length=20)
     motorTemp = models.CharField(max_length=20)
     dcMainVoltage = models.CharField(max_length=20)
