@@ -6,7 +6,8 @@ Description = Start furyTerminal Server
 
 [Service]
 Type = forking
-# FIXME: user may cause bug
-ExecStart = su pi && /home/pi/Desktop/furyTerminal/fury r
+User = pi
+ExecStart = /home/pi/Desktop/furyTerminal/fury r
 
 [Install]
+WantedBy = graphical.target
