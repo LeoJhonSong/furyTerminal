@@ -10,4 +10,4 @@ User = pi
 ExecStart = /home/pi/Desktop/furyTerminal/fury r
 
 [Install]
-WantedBy = graphical.target
+WantedBy = basic.target

@@ -1,9 +1,11 @@
 import os
 import can
+import time
 
 can.rc['interface'] = 'socketcan'
 can.rc['channel'] = 'can0'
 can.rc['bitrate'] = 250000  # 250k bits/s
+
 idList = [
     0x203,  # 安全回路状态, 油门深度, 刹车深度, 控制状态标志, 给定转矩
     0x186040f3,  # 电压, 电流, SoC
@@ -51,12 +53,20 @@ class CAN(object):
     """
 
     def __init__(self):
-        # turn on the network or will get bug: Network down
-        os.system('sudo ip link set ' + can.rc['channel'] + ' type can bitrate ' + str(can.rc['bitrate']))
-        os.system('sudo ifconfig ' + can.rc['channel'] + ' up')
-        self.bus = can.interface.Bus()
-        self.bus.set_filters(
-            [{'can_id': item, 'can_mask': idMask} for item in idList])
+        while True:
+            os.system('sudo ip link set ' + can.rc['channel'] + ' type can bitrate ' + str(can.rc['bitrate']))
+            os.system('sudo ifconfig ' + can.rc['channel'] + ' up')
+            try:
+                # turn on the network or will get bug: Network down
+                self.bus = can.interface.Bus()
+            except OSError:
+                # wait for 5s and try again
+                os.system('date')
+                time.sleep(5)
+            else:
+                break
+        print('b')
+        self.bus.set_filters([{'can_id': item, 'can_mask': idMask} for item in idList])
         self.state = {}
 
     def kill(self):
