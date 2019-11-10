@@ -136,9 +136,9 @@
             powerGauge.setValue(power)
             speedGauge.setValue(speed)
             socGauge.setValue(batSoc)
-            document.getElementById('mcuTemp').innerHTML = '电控温度: ' + mcuTemp
-            document.getElementById('motorTemp').innerHTML = '电机温度: ' + motorTemp
-            document.getElementById('batMaxTemp').innerHTML = '电池温度: ' + batMaxTemp
+            document.getElementById('mcuTemp').innerHTML = '电控温度: ' + mcuTemp + '℃'
+            document.getElementById('motorTemp').innerHTML = '电机温度: ' + motorTemp + '℃'
+            document.getElementById('batMaxTemp').innerHTML = '电池温度: ' + batMaxTemp + '℃'
         });
         setTimeout("speed_show()", 100);
     }
