@@ -2,187 +2,190 @@
     但是我还不会添加链接。。。 所以可能得麻烦你整一下  -->
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Gauges</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="MobileOptimized" content="480" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="theme-color" content="#2f434e" />
-    <meta http-equiv="cleartype" content="on" />
-    <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="dark.css" />
-    <style>
-      .example {
-        overflow: auto;
-        padding: 10px;
-        box-sizing: border-box;
-        clear: both;
-        position:absolute;
-        top: 55%;
-        left: 18%;
-      }
-      .example1 {
-        overflow: auto;
-        padding: 10px;
-        box-sizing: border-box;
-        clear: both;
-        position:absolute;
-        top: 55%;
-        right: 58%;
-      }
+<head>
+  <title>Gauges</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="480" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-      .example > .display {
-        box-sizing: border-box;
-        padding: 10px;
-        text-align: center;
-        overflow: auto;
-        padding: 40px 0;
-        overflow: hidden;
-      }
-      
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#2f434e" />
+  <meta http-equiv="cleartype" content="on" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="dark.css" />
+  <style>
+    .example {
+      overflow: auto;
+      padding: 10px;
+      box-sizing: border-box;
+      clear: both;
+      position: absolute;
+      top: 55%;
+      left: 18%;
+    }
 
+    .example1 {
+      overflow: auto;
+      padding: 10px;
+      box-sizing: border-box;
+      clear: both;
+      position: absolute;
+      top: 55%;
+      right: 58%;
+    }
 
-
-      .example1 > .display {
-        box-sizing: border-box;
-        padding: 10px;
-        text-align: center;
-        overflow: auto;
-        padding: 40px 0;
-        overflow: hidden;
-      }
+    .example>.display {
+      box-sizing: border-box;
+      padding: 10px;
+      text-align: center;
+      overflow: auto;
+      padding: 40px 0;
+      overflow: hidden;
+    }
 
 
 
-      * {
-  box-sizing: border-box;
-}
 
-body {
-  margin: 0;
-}
-
-/* Style the header */
-.header {
-  background-color: #f1f1f1;
-  padding: 40px;
-  text-align: center;
-  font-size: 40px;
-}
-
-/* Style the top navigation bar */
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-/* Style the topnav links */
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-/* Change color on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.column {
-    float: left;
-    width: 50%;
-    padding: 15px;
-    text-align: center;
-}
-.row:after{
-    content: "";
-    display: table;
-    clear: both;
-}
-
-      pre {
-        padding: 0;
-        margin: 0;
-      }
+    .example1>.display {
+      box-sizing: border-box;
+      padding: 10px;
+      text-align: center;
+      overflow: auto;
+      padding: 40px 0;
+      overflow: hidden;
+    }
 
 
 
-      @media only screen and (min-device-width: 768px) {
-    
-    /* .example > .code {
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    /* Style the header */
+    .header {
+      background-color: #f1f1f1;
+      padding: 40px;
+      text-align: center;
+      font-size: 40px;
+    }
+
+    /* Style the top navigation bar */
+    .topnav {
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    /* Style the topnav links */
+    .topnav a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    /* Change color on hover */
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .column {
+      float: left;
+      width: 50%;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    pre {
+      padding: 0;
+      margin: 0;
+    }
+
+
+
+    @media only screen and (min-device-width: 768px) {
+
+      /* .example > .code {
           width: 65%;
         } */
-        
-        .example > .display {
-          width: 70%;
-        }
-        .example1 > .display {
-          width: 70%;
-        }
-    /*.example > .code {
+
+      .example>.display {
+        width: 70%;
+      }
+
+      .example1>.display {
+        width: 70%;
+      }
+
+      /*.example > .code {
           float: left;
         }*/
-        
-        .example > .display {
-          float: left;
-          padding: 10px;
-        }
-        .example1 > .display {
-          float: right;
-          padding: 10px;
-        }
+
+      .example>.display {
+        float: left;
+        padding: 10px;
       }
-    </style>
 
-    <script type="text/javascript" src="highlight.pack.js"> </script>
-    <script>hljs.initHighlightingOnLoad();</script>
-  </head>
+      .example1>.display {
+        float: right;
+        padding: 10px;
+      }
+    }
+  </style>
 
-  <body>
-    <div class="header">
-        <h1>oncar debug </h1>
-    </div>
+</head>
 
-    <div class="topnav">
-        <a href="#">安全回路</a>
-    </div>
+<body>
+  <div class="header">
+    <h1>oncar debug </h1>
+  </div>
 
-    <div class="row">
-        <div class="column">
-            <h2>油门深度</h2>
+  <div class="topnav">
+    <a href="#">安全回路</a>
+  </div>
 
-            <!-- -->
-                <div class="example">
-                    <div class="display">
-                        <div id="gauge0" class="gauge-container"> </div>
-                    </div>
-                </div>
+  <div class="row">
+    <div class="column">
+      <h2>油门深度</h2>
 
+      <!-- -->
+      <div class="example">
+        <div class="display">
+          <div id="gauge0" class="gauge-container"> </div>
         </div>
-            
-        <div class="column">
-            <h2>刹车深度</h2>
-
-                <div class="example1">
-                    <div class="display">
-                        <div id="gauge0" class="gauge-container"> </div>
-                    </div>
-                </div>                      
-        </div>
+      </div>
 
     </div>
 
+    <div class="column">
+      <h2>刹车深度</h2>
 
-<!-- <div class="example">
+      <div class="example1">
+        <div class="display">
+          <div id="gauge0" class="gauge-container"> </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- <div class="example">
             <div class="display">
               <div id="gauge6" class="gauge-container six"></div>
             </div>
@@ -216,8 +219,8 @@ body {
 -->
 
 
-    
-<!--  <div class="example">
+
+  <!--  <div class="example">
       <div class="code">
         <pre>
 <code class="html">  &lt;div id="gauge1" class="gauge-container"&gt;&lt;/div&gt;</code>
@@ -243,108 +246,102 @@ body {
     </div>   
 
 -->
-    
-    <script type="text/javascript" src="../src/gauge.js"> </script>
-    <script>
 
-      var pad = function(tar) {}
+  <script type="text/javascript" src="../src/gauge.js"> </script>
+  <script>
+    var pad = function (tar) {}
 
-      var gauge0 = Gauge(document.getElementById("gauge0"));
+    var gauge0 = Gauge(document.getElementById("gauge0"));
 
-      var gauge1 = Gauge(
-        document.getElementById("gauge1"),
-		    {
-          max: 100,
-          dialStartAngle: -90,
-          dialEndAngle: -90.001,
-          value: 100,
-          label: function(value) {
-            return (Math.round(value * 100) / 100) + "/" + this.max;
+    var gauge1 = Gauge(
+      document.getElementById("gauge1"), {
+        max: 100,
+        dialStartAngle: -90,
+        dialEndAngle: -90.001,
+        value: 100,
+        label: function (value) {
+          return (Math.round(value * 100) / 100) + "/" + this.max;
+        }
+      }
+    );
+
+    var gauge2 = Gauge(
+      document.getElementById("gauge2"), {
+        min: -100,
+        max: 100,
+        dialStartAngle: 180,
+        dialEndAngle: 0,
+        value: 50,
+        viewBox: "0 0 100 57",
+        color: function (value) {
+          if (value < 20) {
+            return "#5ee432";
+          } else if (value < 40) {
+            return "#fffa50";
+          } else if (value < 60) {
+            return "#f7aa38";
+          } else {
+            return "#ef4655";
           }
         }
-      );
+      }
+    );
 
-      var gauge2 = Gauge(
-        document.getElementById("gauge2"),
-		    {
-          min: -100,
-          max: 100,
-          dialStartAngle: 180,
-          dialEndAngle: 0,
-          value: 50,
-          viewBox: "0 0 100 57",
-          color: function(value) {
-            if(value < 20) {
-              return "#5ee432";
-            }else if(value < 40) {
-              return "#fffa50";
-            }else if(value < 60) {
-              return "#f7aa38";
-            }else {
-              return "#ef4655";
-            }
-          }
-        }
-      );
+    var gauge3 = Gauge(
+      document.getElementById("gauge3"), {
+        max: 100,
+        value: 50
+      }
+    );
 
-      var gauge3 = Gauge(
-        document.getElementById("gauge3"),
-		    {
-          max: 100,
-          value: 50
-        }
-      );
+    var gauge4 = Gauge(
+      document.getElementById("gauge4"), {
+        max: 100,
+        dialStartAngle: 180,
+        dialEndAngle: -90,
+        viewBox: "0 0 60 60",
+        value: 50
+      }
+    );
 
-      var gauge4 = Gauge(
-        document.getElementById("gauge4"),
-		    {
-          max: 100,
-          dialStartAngle: 180,
-          dialEndAngle: -90,
-          viewBox: "0 0 60 60",
-          value: 50
-        }
-      );
+    var gauge5 = Gauge(
+      document.getElementById("gauge5"), {
+        max: 200,
+        dialStartAngle: 0,
+        dialEndAngle: -180,
+        viewBox: "0 35 100 100",
+        value: 50
+      }
+    );
 
-      var gauge5 = Gauge(
-        document.getElementById("gauge5"),
-		    {
-          max: 200,
-          dialStartAngle: 0,
-          dialEndAngle: -180,
-          viewBox: "0 35 100 100",
-          value: 50
-        }
-      );
+    var gauge6 = Gauge(
+      document.getElementById("gauge6"), {
+        max: 100,
+        dialStartAngle: 90.01,
+        dialEndAngle: 89.99,
+        dialRadius: 15,
+        showValue: false,
+        value: 100
+      }
+    );
 
-      var gauge6 = Gauge(
-        document.getElementById("gauge6"),
-		    {
-          max: 100,
-          dialStartAngle: 90.01,
-          dialEndAngle: 89.99,
-          dialRadius: 15,
-          showValue: false,
-          value: 100
-        }
-      );
+    (function loop() {
+      var value1 = Math.random() * 100,
+        value2 = Math.random(),
+        value3 = Math.random() * 100,
+        value4 = Math.random() * 100,
+        value5 = Math.random() * 200;
 
-      (function loop() {
-        var value1 = Math.random() * 100,
-            value2 = Math.random(),
-            value3 = Math.random() * 100,
-            value4 = Math.random() * 100,
-            value5 = Math.random() * 200;
+      gauge0.setValue(value1, 1);
+      gauge1.setValueAnimated(value1, 1);
+      gauge2.setValueAnimated(50 - value1, 3);
+      gauge3.setValueAnimated(value3, 1.5);
+      gauge4.setValueAnimated(value4, 2);
+      gauge5.setValueAnimated(value5, 1);
+      gauge6.setValueAnimated(value1, 1);
+      window.setTimeout(loop, 4000);
+    })();
+  </script>
+</body>
 
-        gauge0.setValue(value1, 1);
-        gauge1.setValueAnimated(value1, 1);
-        gauge2.setValueAnimated(50 - value1, 3);
-        gauge3.setValueAnimated(value3, 1.5);
-        gauge4.setValueAnimated(value4, 2);
-        gauge5.setValueAnimated(value5, 1);
-        gauge6.setValueAnimated(value1, 1);
-        window.setTimeout(loop, 4000);
-      })();
-    </script>
-  </body>
 </html>
