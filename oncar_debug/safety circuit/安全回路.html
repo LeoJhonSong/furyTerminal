@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+function light(sw,se) {
+  var pic;
+  if (sw == 0 && se==0) {
+    pic = "1.jpg"
+  }  
+  if (sw== 0 && se==1)
+  {pic = "3.jpg"}
+  if (sw== 1 && se ==0)
+  {pic = "4.jpg"}
+  if (sw== 1 && se ==1)
+  {pic = "5.jpg"}
+  
+  document.getElementById('myImage').src = pic;
+}
+</script>
+
+<img id="myImage" src="1.jpg" width="1500" height="600">
+
+<p>
+<button type="button" onclick="light(0,0)">1</button>
+<button type="button" onclick="light(0,1)">3</button>
+<button type="button" onclick="light(1,0)">4</button>
+<button type="button" onclick="light(1,1)">5</button>
+
+</p>
+
+</body>
+</html>
