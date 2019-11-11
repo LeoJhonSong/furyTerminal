@@ -65,7 +65,6 @@ class CAN(object):
                 time.sleep(5)
             else:
                 break
-        print('b')
         self.bus.set_filters([{'can_id': item, 'can_mask': idMask} for item in idList])
         self.state = {}
 
