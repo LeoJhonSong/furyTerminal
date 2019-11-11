@@ -42,6 +42,7 @@ def install():
     pip3 install python-can
     pip3 install mysqlclient
     sudo apt install mariadb-server mariadb-client -y
+    sudo echo -e "# enable can bus\ndtparam=spi=on\ndtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000" >> /boot/config.txt
     ''')
 
 
