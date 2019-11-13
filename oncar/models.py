@@ -44,6 +44,7 @@ class State(models.Model):
 
     mcuTemp = models.CharField(max_length=20)
     motorTemp = models.CharField(max_length=20)
+    AIRFlag = models.CharField(max_length=20)
     dcMainVoltage = models.CharField(max_length=20)
     dcMainCurrent = models.CharField(max_length=20)
     acCurrent = models.CharField(max_length=20)
