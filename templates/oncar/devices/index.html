@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Devices`{% endblock title %}
+
+{% block body-content %}
+
+<img id="safety-circuit" src="{% static 'oncar/img/1.jpg' %}" width=50vw>
+
+<script>
+    function detect(state) {
+        document.getElementById('safety-circuit').src = function (state) {
+            if (state == 1) {
+                return "{% static 'oncar/img/1.jpg' %}";
+            } else if (state == 2) {
+                return "{% static 'oncar/img/2.jpg' %}";
+            } else if (state == 3) {
+                return "{% static 'oncar/img/3.jpg' %}";
+            } else if (state == 4) {
+                return "{% static 'oncar/img/4.jpg' %}";
+            }
+        }
+    }
+</script>
+
+{% endblock body-content %}
