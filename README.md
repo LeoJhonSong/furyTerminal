@@ -61,17 +61,19 @@
 
 #### TODO
 
-- 开机动画. 可参考 🔗[YouTube上一个人给树莓派换Spalsh Screen](https://www.youtube.com/watch?v=VK_eBe53Stc)
-- 树莓派开机自启指定网页. 可参考 🔗[这里](https://blog.csdn.net/szu_Vegetable_Bird/article/details/80231660)
-- 电池箱温度热力图
-- 车手界面电控alert报警
+- oncar tab页 (车手页, 设备页, 关机)
 - 传感器调试, 安全回路状态界面
   - 油门深度 (单色直柱)
   - 刹车深度 (单色直柱)
-  - 方向盘转向角 (一个方向盘图)
   - 安全电路状态图
+- 车手界面mcMessage alert报警
+- 开机图片/动画. 可参考 🔗[YouTube上一个人给树莓派换Spalsh Screen](https://www.youtube.com/watch?v=VK_eBe53Stc)
+- 电池箱温度热力图
 
 #### FIXME
+
+- 将开机启动网页的时间提前
+- mysql数据库延迟 (应该是和事务独立等级有关)
 
 #### Milestone
 
