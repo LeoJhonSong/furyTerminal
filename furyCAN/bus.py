@@ -110,7 +110,8 @@ class CAN(object):
             3: mcMessage1,
             4: mcMessage2,
             5: mcuTemp,
-            6: motorTemp
+            6: motorTemp,
+            7: AIRFlag
 
         when vcuFlag is 3:
             1: dcMainVoltage (H),
@@ -136,7 +137,9 @@ class CAN(object):
         if data[0] == 1:
             # allFlag
             allFlag = bin(data[1] * 256 + data[2])[2:]
-            allFlag = allFlag[::-1]
+            # complete the bits if the binary number is shorter than allFlagContent
+            # FIXME: check if works
+            allFlag = allFlag[::-1] + '0' * (len(allFlagContent) - len(allFlag))
             for i in range(len(allFlagContent)):
                 self.state[allFlagContent[i]] = allFlag[i]
             # TODO: maybe can be deleted
@@ -157,11 +160,15 @@ class CAN(object):
             self.state['speed'] = self.state['rotateSpeed'] * 0.0157  # km/h
             # mcMessages
             mcMessage = bin(data[3] * 256 + data[4])[2:]
+            # complete the bits if the binary number is shorter than mcMessageContent
+            # FIXME: check if works
+            mcMessage = '0' * (len(mcMessageContent) - len(mcMessage)) + mcMessage
             for i in range(len(mcMessageContent)):
                 self.state[mcMessageContent[i]] = mcMessage[i]
 
             self.state['mcuTemp'] = data[5] - 50  # ℃
             self.state['motorTemp'] = data[6] - 50  # ℃
+            self.state['AIRFlag'] = data[7]
         elif data[0] == 3:
             self.state['dcMainVoltage'] = (data[1] * 256 + data[2]) / 10  # V
             self.state['dcMainCurrent'] = (data[3] * 256 + data[4]) / 10 - 1600  # A
