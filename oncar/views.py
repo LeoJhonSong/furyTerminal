@@ -5,13 +5,14 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from ..furyCAN import bus
 
+can1 = bus.CAN()
+
 
 def index(request):
     return render(request, 'oncar/index.html')
 
 
 def refresh(request):
-    can1 = bus.CAN()
     id, data = can1.decode()
     can1.read(id, data)
     data = {
