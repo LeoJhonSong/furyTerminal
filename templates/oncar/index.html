@@ -5,6 +5,36 @@
 {% block title %}Oncar{% endblock %}
 
 {% block body-content %}
+<style type="text/css">
+    .tab {
+        display: inline-block;
+        float: left;
+        height: 4vh;
+        width: 25vw;
+        background: rgb(90, 100, 110);
+        border: outset;
+        text-decoration: none;
+        text-align: center;
+        font-size: 3vh;
+    }
+
+    .tab:link,
+    .tab:visited {
+        color: white;
+    }
+
+    .tab:hover,
+    .tab:active {
+        color: rgb(90, 100, 110);
+        background: white;
+    }
+</style>
+
+<div>
+    <a class="tab" href="https:localhost:8000/oncar">车手页</a>
+    <a class="tab" href="https:localhost:8000/oncar/devices">设备页</a>
+    <a class="tab" href="https:localhost:8000/oncar/poweroff">关机</a>
+</div>
 
 <div>
     {% include 'oncar/gauge.html' %}

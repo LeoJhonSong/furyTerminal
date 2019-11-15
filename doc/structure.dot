@@ -1,0 +1,45 @@
+digraph G {
+rankdir=TD
+node[shape=box]
+subgraph cluster_sencer{
+    temp[label="温度传感器"]
+    g[label="九轴加速传感器"]
+    energy[label="能量计"]
+    speed[label="轮速传感器"]
+    youmen[label="油门传感器"]
+    shache[label="刹车传感器"]
+    label="传感器"
+    color=blue
+}
+bms[label="电池管理系统", color=blue]
+mcu[label="电机控制器", color=blue]
+vcu[label="整车控制器", color=blue]
+
+can[label="CAN总线", style="filled", fillcolor=grey, shape=none]
+
+subgraph cluster_rpi {
+    can2spi[label="CAN转SPI模块"]
+    system[label="基于django的服务器"]
+    database[label="MySQL数据库"]
+    can2spi -> system[label="socket", dir="both"]
+    system ->database[dir="both"]
+    color=purple
+    label="人机交互终端"
+}
+screen[label="车载触摸屏", style="filled", fillcolor=orange, fontcolor=white, shape=none]
+screen -> system[label="本地"]
+mobile[label="移动端", style="filled", fillcolor=lightblue, fontcolor=white, shape=none]
+mobile -> system[label="Wi-Fi/4G"]
+remote[label="笔记本", style="filled", fillcolor=green, fontcolor=white, shape=none]
+temp -> can
+g -> can
+energy -> can
+speed -> can
+youmen -> can
+shache -> can
+bms -> can
+mcu -> can
+vcu -> can
+can -> can2spi[label="CAN", dir="both"]
+system -> remote[label="ssh远程调试, 开发", dir="both", style="dashed"]
+}

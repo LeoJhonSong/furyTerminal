@@ -12,6 +12,10 @@ def index(request):
     return render(request, 'oncar/index.html')
 
 
+def devices(request):
+    return render(request, 'oncar/devices/index.html')
+
+
 def refresh(request):
     id, data = can1.decode()
     can1.read(id, data)
