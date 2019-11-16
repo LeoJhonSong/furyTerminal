@@ -156,6 +156,8 @@ class CAN(object):
             self.state['gear'] = data[7]
         elif data[0] == 2:
             self.state['rotateSpeed'] = (data[1] * 256 + data[2]) / 2 - 10000  # rpm
+            print('data[1]: ' + str(data[1]))
+            print('data[2]: ' + str(data[2]))
             # 0.0157 is a total argument
             self.state['speed'] = self.state['rotateSpeed'] * 0.0157  # km/h
             # mcMessages

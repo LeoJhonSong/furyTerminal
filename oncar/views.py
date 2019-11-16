@@ -3,7 +3,7 @@ import os
 
 from django.http import JsonResponse
 from django.shortcuts import render
-from ..furyCAN import bus
+from . import bus
 
 can1 = bus.CAN()
 
@@ -31,4 +31,4 @@ def refresh(request):
 
 
 def poweroff(request):
-    os.system('poweroff')
+    os.system('sudo poweroff')
