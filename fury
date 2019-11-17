@@ -13,6 +13,7 @@ def sh(command):
 def runServer():
     sh('''
     python ./manage.py runserver 0:8000 >log/server.log 2>&1 &
+    python ./CAN_read.py >log/record.log 2>&1 &
     ''')
 
 

@@ -1,11 +1,10 @@
 import json
 import os
+import socket
 
 from django.http import JsonResponse
 from django.shortcuts import render
 from . import bus
-
-can1 = bus.CAN()
 
 
 def index(request):
@@ -17,16 +16,20 @@ def devices(request):
 
 
 def refresh(request):
-    id, data = can1.decode()
-    can1.read(id, data)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect(('0.0.0.0', 8080))
+    # s.send(b'Give me')
+    state = eval(s.recv(1024).decode('utf-8'))
     data = {
-        'speed': can1.state['speed'],
-        'power': can1.state['power'],
-        'batSoc': can1.state['batSoc'],
-        'mcuTemp': can1.state['mcuTemp'],
-        'motorTemp': can1.state['motorTemp'],
-        'batMaxTemp': can1.state['batMaxTemp'],
+        'speed': state['speed'] if 'speed' in state else 0,
+        'power': state['power'] if 'power' in state else 0,
+        'batSoc': state['batSoc'] if 'batSoc' in state else 0,
+        'mcuTemp': state['mcuTemp'] if 'mcuTemp' in state else 0,
+        'motorTemp': state['motorTemp'] if 'motorTemp' in state else 0,
+        'batMaxTemp': state['batMaxTemp'] if 'batMaxTemp' in state else 0,
     }
+    # s.send(b'exit')
+    s.close()
     return JsonResponse(data)
 
 
