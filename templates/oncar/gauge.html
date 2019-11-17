@@ -140,7 +140,7 @@
             document.getElementById('motorTemp').innerHTML = '电机温度: ' + motorTemp + '℃'
             document.getElementById('batMaxTemp').innerHTML = '电池温度: ' + batMaxTemp + '℃'
         });
-        setTimeout("speed_show()", 100);
+        setTimeout("speed_show()", 500);  // lower may cause database-lock
     }
     window.onload = speed_show();
 </script>
