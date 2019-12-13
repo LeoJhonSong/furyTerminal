@@ -7,8 +7,17 @@
 {% block body-content %}
 
 {% include 'oncar/tabs.html' %}
+<style>
+    #safety-circuit {
+        position: absolute;
+        height: 80vh;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+    }
+</style>
 
-<img id="safety-circuit" src="{% static 'oncar/img/1.jpg' %}" width=50vw>
+<img id="safety-circuit" src="{% static 'oncar/img/1.jpg' %}">
 
 <script>
     function detect(state) {

@@ -42,7 +42,9 @@ def install():
     pip3 install python-can
     pip3 install mysqlclient
     sudo apt install mariadb-server mariadb-client -y
-    sudo echo -e "# enable can bus\ndtparam=spi=on\ndtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000" >> /boot/config.txt
+    sudo echo -e "# enable can bus
+    \rdtparam=spi=on
+    \rdtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000" >> /boot/config.txt
     ''')
 
 
@@ -50,14 +52,35 @@ def config():
     """
     setup autorun configurations
     """
+    # copy web page auto start config file
     if not os.path.exists(os.path.expanduser('~/.config/autostart/')):
         os.mkdir(os.path.expanduser('~/.config/autostart/'))
     sh('cp -f config/oncar.desktop ~/.config/autostart/')
-    if not os.path.exists('/etc/systemd/system/'):
-        os.mkdir('/etc/systemd/system/')
+    # config startup cmdline
+    with open('/boot/cmdline.txt', 'r') as f:
+        cmdline = f.read().strip().split()
+    cmd_config = [
+        'logo.nologo',  # disable the three respberry at left up corner when booting
+        'splash',  # enable splash screen
+        'plymouth.ignore-serial-consoles',  # cover consoles by plymouth
+        'loglevel=3'  # output less lines
+        'quiet',  # disable lines
+    ]
+    with open('/boot/cmdline.txt', 'a+') as f:
+        for item in cmd_config:
+            if item not in cmdline:
+                f.write(' ' + item)
     sh('''
+    # configure services
+    cp -f config/fury.png ~/Pictures/
+    sudo cp -f config/splashScreen.service /etc/systemd/system/
     sudo cp -f config/furyTerminal.service /etc/systemd/system/
-    sudo systemctl enable furyTerminal.service
+    sudo systemctl enable splashScreen
+    sudo systemctl enable furyTerminal
+    # disable color test
+    sudo sed -ir "s/disable_splash=1/disable_splash=0/g" /boot/config.txt
+    # set plymouth theme
+    sudo plymouth-set-default-theme spinner -R
     ''')
 
 
