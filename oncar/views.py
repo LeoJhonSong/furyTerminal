@@ -3,8 +3,9 @@ import os
 
 from django.http import JsonResponse
 from django.shortcuts import render
+from ..furyCAN import bus
 
-from .models import State
+can1 = bus.CAN()
 
 
 def index(request):
@@ -16,14 +17,15 @@ def devices(request):
 
 
 def refresh(request):
-    latest = State.objects.order_by('-time_stamp')[0]
+    id, data = can1.decode()
+    can1.read(id, data)
     data = {
-        'speed': latest.speed,
-        'power': latest.power,
-        'batSoc': latest.batSoc,
-        'mcuTemp': latest.mcuTemp,
-        'motorTemp': latest.motorTemp,
-        'batMaxTemp': latest.batMaxTemp,
+        'speed': can1.state['speed'],
+        'power': can1.state['power'],
+        'batSoc': can1.state['batSoc'],
+        'mcuTemp': can1.state['mcuTemp'],
+        'motorTemp': can1.state['motorTemp'],
+        'batMaxTemp': can1.state['batMaxTemp'],
     }
     return JsonResponse(data)
 
