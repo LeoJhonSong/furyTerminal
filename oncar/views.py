@@ -11,6 +11,10 @@ def index(request):
     return render(request, 'oncar/index.html')
 
 
+def devices(request):
+    return render(request, 'oncar/devices/index.html')
+
+
 def refresh(request):
     latest = State.objects.order_by('-time_stamp')[0]
     data = {
@@ -25,4 +29,4 @@ def refresh(request):
 
 
 def poweroff(request):
-    os.system('poweroff')
+    os.system('sudo poweroff')
