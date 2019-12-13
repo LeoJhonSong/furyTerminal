@@ -1,6 +1,7 @@
 import os
 import can
 import time
+import datetime
 
 can.rc['interface'] = 'socketcan'
 can.rc['channel'] = 'can0'
@@ -227,9 +228,14 @@ class CAN(object):
 
 if __name__ == "__main__":
     can1 = CAN()
+    # last = datetime.datetime.now().microsecond
     while True:
         id, data = can1.decode()
         can1.read(id, data)
+        # can1.state['time'] = datetime.datetime.now()
+        # now = datetime.datetime.now().microsecond
         i = os.system('clear')
+        # print(((now - last)**2)**0.5)
+        # last = now
         for item in can1.state:
             print(str(item) + ': ' + str(can1.state[item]))

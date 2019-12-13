@@ -144,15 +144,6 @@
 </script>
 
 <script>
-    var timer;
-
-    function waring(message) {
-        timer = setTimeout(function(){
-            alert(message);
-            clearTimeout(timer);
-        }, 3000);
-    }
-
     function speed_show() {
         $.getJSON('/oncar/refresh', {}, function (json) {
             var power = json.power
@@ -176,9 +167,6 @@
             document.getElementById('mcuTemp').innerHTML = '电控温度: ' + mcuTemp + '℃'
             document.getElementById('motorTemp').innerHTML = '电机温度: ' + motorTemp + '℃'
             document.getElementById('batMaxTemp').innerHTML = '电池温度: ' + batMaxTemp + '℃'
-            if (resolverFlag) {
-                waring("旋变报警");
-            }
         });
         setTimeout("speed_show()", 95);
     }
