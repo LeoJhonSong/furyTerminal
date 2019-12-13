@@ -9,27 +9,6 @@
         font-family: Titillium;
     }
 
-    .power-gauges {
-        width: 25vw;
-        height: 30vw;
-        position: relative;
-        float: left;
-    }
-
-    .speed-gauges {
-        width: 40vw;
-        height: 30vw;
-        position: relative;
-        float: left;
-    }
-
-    .soc-gauges {
-        width: 25vw;
-        height: 30vw;
-        position: relative;
-        float: left;
-    }
-
     .gauge-unit-text {
         position: absolute;
         top: 65%;
@@ -44,6 +23,47 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+
+    .gauge-container>.gauge>.value {
+        stroke-width: 10;
+    }
+
+    .power-gauges {
+        width: 25vw;
+        height: 30vw;
+        position: relative;
+        float: left;
+    }
+
+    .power-gauges>.gauge-container>.gauge>.value-text {
+        font-size: 8vh;
+    }
+
+    .speed-gauges {
+        width: 40vw;
+        height: 30vw;
+        position: relative;
+        float: left;
+    }
+
+    .speed-gauges>.gauge-container>.gauge>.value-text {
+        font-size: 10vh;
+    }
+
+    .speed-gauges>.gauge-unit-text {
+        top: 70%;
+    }
+
+    .soc-gauges {
+        width: 25vw;
+        height: 30vw;
+        position: relative;
+        float: left;
+    }
+
+    .soc-gauges>.gauge-container>.gauge>.value-text {
+        font-size: 8vh;
     }
 </style>
 
@@ -132,6 +152,14 @@
             var mcuTemp = json.mcuTemp
             var motorTemp = json.motorTemp
             var batMaxTemp = json.batMaxTemp
+            var resolverFlag = json.resolverFlag
+            var currentOverloadFlag = json.currentOverloadFlag
+            var voltageOverloadFlag = json.voltageOverloadFlag
+            var ctlPointFlag = json.ctlPointFlag
+            var voltageUnderloadFlag = json.voltageUnderloadFlag
+            var powerLimitFlag = json.powerLimitFlag
+            var mcTempFlag = json.mcTempFlag
+            var motorTempFlag = json.motorTempFlag
             // svg-modern-gauge
             powerGauge.setValue(power)
             speedGauge.setValue(speed)
@@ -140,7 +168,7 @@
             document.getElementById('motorTemp').innerHTML = '电机温度: ' + motorTemp + '℃'
             document.getElementById('batMaxTemp').innerHTML = '电池温度: ' + batMaxTemp + '℃'
         });
-        setTimeout("speed_show()", 500);  // lower may cause database-lock
+        setTimeout("speed_show()", 95);
     }
     window.onload = speed_show();
 </script>

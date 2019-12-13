@@ -1,0 +1,13 @@
+digraph G {
+rankdir=LR
+node[shape=box]
+CAN总线 -> django后端[label="django后端文件中\n直接调用furyCAN模块读取数据", dir="back", color="yellow"]
+django后端 -> django前端[label="前端周期性通过jQuery访问\n网页请求数据", dir="back", arrowtail="rnormal", color="blue"]
+django后端 -> django前端[label="后端返回JSON格式数据", arrowhead="rnormal", color="blue"]
+CAN总线 -> "CAN_read.py"[label="不断调用furyCAN模块\n读取数据并更新到一个字典", dir="back"]
+"CAN_read.py" -> django后端[label="socket客户端申请数据", dir="back", arrowtail="rnormal", color="green"]
+"CAN_read.py" -> django后端[label="socket服务器端返回最新数据", arrowhead="rnormal", color="green"]
+CAN总线 -> "record.py"[label="\n不断调用furyCAN模块\n读取数据", dir="back"]
+"record.py" -> 数据库[label="将数据存入数据库", color="red"]
+数据库 -> django后端[label="\n调用最新数据", dir="back", color="red"]
+}
