@@ -1,0 +1,10 @@
+[Unit]
+Description=Splashscreen
+DefaultDependencies=no
+After=basic.target
+[Service]
+ExecStart=/usr/bin/fbi -d /dev/fb0 --noverbose -a /home/pi/Pictures/fury.png
+StandardInput=tty
+StandardOutput=tty
+[Install]
+WantedBy=sysinit.target
